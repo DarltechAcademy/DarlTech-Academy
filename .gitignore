@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Project specific
+backend/.env
+backend/node_modules
+desktop.ini
