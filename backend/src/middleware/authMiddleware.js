@@ -1,19 +1,30 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const protect = (req, res, next) => {
-    let token = req.headers.authorization;
+const protect = async (req, res, next) => {
+    let token;
 
-    if (token && token.startsWith('Bearer')) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
-            token = token.split(' ')[1];
+            token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            // Mock user for now since DB is not connected
-            req.user = { id: decoded.id, role: 'Student' };
+
+            // Add user to request object (excluding password)
+            req.user = await User.findById(decoded.id).select('-password');
+
+            if (!req.user) {
+                res.status(401);
+                throw new Error('Not authorized, user not found');
+            }
+
             next();
         } catch (error) {
+            console.error(error);
             res.status(401).json({ message: "Not authorized, token failed" });
         }
-    } else {
+    }
+
+    if (!token) {
         res.status(401).json({ message: "Not authorized, no token" });
     }
 };

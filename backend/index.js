@@ -5,6 +5,10 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./src/config/swagger');
 const { notFound, errorHandler } = require('./src/middleware/errorMiddleware');
+const connectDB = require('./src/config/db');
+
+// Connect to Database
+connectDB();
 
 const app = express();
 
