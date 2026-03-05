@@ -4,18 +4,31 @@ The backend for DarlTech Academy, a web-based Learning Management System (LMS) p
 
 ---
 
-## 🚀 Sprint 1: Project Setup & Authentication
-This sprint lays the foundation for a secure, role-based backend architecture. All scaffolding, configuration, and user authentication mechanisms are complete.
+## 🚀 Sprint 1: Project Setup & Authentication [Completed]
+This sprint laid the foundation for a secure, role-based backend architecture.
 
 ### Key Features Implemented:
 *   **Layered MVC Architecture:** Organized structure segregating `controllers`, `models`, `routes`, `middleware`, and `utils`.
-*   **Mongoose Integration:** `src/config/db.js` is set up to seamlessly connect with a MongoDB database URL provided via `.env`.
-*   **User Schema Setup:** `src/models/User.js` enforces fields for `name`, `email`, `password`, `role` (`Student`, `Tutor`, `Admin`), and encrypts passwords automatically using `bcryptjs` before they save.
-*   **Authentication Flow (JWT):** Registration and login endpoints correctly validate credentials and construct a secure JSON Web Token referencing the authorized user ID. 
-*   **Role-Based Access Control (RBAC):** Dedicated middlewares (`roleMiddleware`, `authMiddleware`) capable of rejecting invalid or tampered tokens, and explicitly banning user roles from accessing improper endpoints.
-*   **Advanced Data Validation:** Robust request checks via `express-validator` are applied on login and registration, stopping malformed inputs before they hit the controllers.
-*   **Centralized Error Handling:** Global error catches convert unhandled exceptions, Mongoose CastErrors, and 404 routes into clear, predictable JSON structures.
-*   **Swagger API Documentation:** Auto-generated endpoints mapping for easier frontend interaction!
+*   **Authentication Flow (JWT):** Registration, login, and profile endpoints.
+*   **Role-Based Access Control (RBAC):** Implementation of `authMiddleware` and `roleMiddleware`.
+*   **Swagger Documentation:** Interactive API docs at `/api-docs`.
+
+---
+
+## 📚 Sprint 2: Course Management [In Progress]
+Focusing on the core Learning Management functionality.
+
+### Available Course Categories:
+`UI/UX Design` · `Cybersecurity` · `Frontend Development` · `Backend Development` · `Graphic Design`
+
+### Key Features Implemented:
+*   **Course Model:** Schema with title, description, category (enum), price, level, status, and tutor reference.
+*   **Module Model:** Hierarchical structure linking modules to courses with ordering support.
+*   **Lesson Model:** Rich content support including text, video URLs, and downloadable resource arrays.
+*   **Full CRUD APIs:** Create, Read, Update, Delete endpoints for Courses, Modules, and Lessons.
+*   **Ownership Protection:** Only the tutor who created a course (or an Admin) can modify/delete it and its content.
+*   **Swagger Documentation:** All new endpoints documented with schemas, query params, and auth requirements.
+*   [ ] **File Uploads:** (Next) Handling for thumbnails and course materials.
 
 ---
 
@@ -55,11 +68,31 @@ Testing endpoints is interactive! Once the server starts on `PORT=5001`, navigat
 
 👉 **[http://localhost:5001/api-docs](http://localhost:5001/api-docs)**
 
-1.  Find the route you want to interact with (e.g. `POST /api/auth/register`).
+### API Endpoint Summary:
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/auth/register` | Public | Register a new user |
+| POST | `/api/auth/login` | Public | Login and get JWT |
+| GET | `/api/auth/profile` | Private | Get logged-in user profile |
+| GET | `/api/courses` | Public | List all courses (filterable) |
+| GET | `/api/courses/:id` | Public | Get course with modules & lessons |
+| POST | `/api/courses` | Admin/Tutor | Create a new course |
+| PUT | `/api/courses/:id` | Owner/Admin | Update a course |
+| DELETE | `/api/courses/:id` | Owner/Admin | Delete a course |
+| GET | `/api/modules?course=ID` | Public | List modules for a course |
+| POST | `/api/modules` | Admin/Tutor | Create a module |
+| PUT | `/api/modules/:id` | Owner/Admin | Update a module |
+| DELETE | `/api/modules/:id` | Owner/Admin | Delete a module |
+| GET | `/api/lessons?module=ID` | Public | List lessons for a module |
+| POST | `/api/lessons` | Admin/Tutor | Create a lesson |
+| PUT | `/api/lessons/:id` | Owner/Admin | Update a lesson |
+| DELETE | `/api/lessons/:id` | Owner/Admin | Delete a lesson |
+
+1.  Find the route you want to interact with.
 2.  Expand it and press **"Try it out"**.
 3.  Fill in the Request Body JSON.
 4.  Hit Execute.
-5.  If testing Protected/Private routes (like Profile), click the green **Authorize** lock icon at the top of the Swagger page, and paste your JWT!
+5.  For protected routes, click the green **Authorize** lock icon and paste your JWT token!
 
 ---
 
@@ -67,15 +100,34 @@ Testing endpoints is interactive! Once the server starts on `PORT=5001`, navigat
 
 ```text
 /backend
-├── .env                  # Environment Variables 
-├── .gitignore            # Ignores Node modules and Secure .env files
-├── index.js              # Express app entry point
-├── package.json          # Node Dependencies & Execution scripts
-└── src/                  # The core application logic
-    ├── config/           # Setup files (Database, Swagger Definitions)
-    ├── controllers/      # Functions that execute the route's heavy lifting
-    ├── middleware/       # Custom Express interceptors for Auth, Roles, Validation, Errors
-    ├── models/           # Mongoose Database Schemas
-    ├── routes/           # Mapped API endpoints connected to Controllers
-    └── utils/            # Shared helper functions (Token Generator)
+├── .env                          # Environment Variables 
+├── .gitignore                    # Ignores Node modules and .env files
+├── index.js                      # Express app entry point
+├── package.json                  # Node Dependencies & Execution scripts
+└── src/
+    ├── config/
+    │   ├── db.js                 # MongoDB connection
+    │   └── swagger.js            # Swagger/OpenAPI configuration
+    ├── controllers/
+    │   ├── authController.js     # Register, Login, Profile logic
+    │   ├── courseController.js   # Course CRUD logic
+    │   ├── moduleController.js   # Module CRUD logic
+    │   └── lessonController.js   # Lesson CRUD logic
+    ├── middleware/
+    │   ├── authMiddleware.js     # JWT verification
+    │   ├── roleMiddleware.js     # Role-based access control
+    │   ├── validationMiddleware.js # Express-validator handler
+    │   └── errorMiddleware.js    # Global error handler
+    ├── models/
+    │   ├── User.js               # User schema (Admin, Tutor, Student)
+    │   ├── Course.js             # Course schema with categories
+    │   ├── Module.js             # Module schema (belongs to Course)
+    │   └── Lesson.js             # Lesson schema (belongs to Module)
+    ├── routes/
+    │   ├── authRoutes.js         # /api/auth endpoints
+    │   ├── courseRoutes.js       # /api/courses endpoints
+    │   ├── moduleRoutes.js       # /api/modules endpoints
+    │   └── lessonRoutes.js       # /api/lessons endpoints
+    └── utils/
+        └── generateToken.js      # JWT token generator
 ```

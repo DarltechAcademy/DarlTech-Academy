@@ -28,6 +28,18 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const authRoutes = require('./src/routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
+// Course Routes
+const courseRoutes = require('./src/routes/courseRoutes');
+app.use('/api/courses', courseRoutes);
+
+// Module Routes
+const moduleRoutes = require('./src/routes/moduleRoutes');
+app.use('/api/modules', moduleRoutes);
+
+// Lesson Routes
+const lessonRoutes = require('./src/routes/lessonRoutes');
+app.use('/api/lessons', lessonRoutes);
+
 // Error Handling Middleware
 app.use(notFound);
 app.use(errorHandler);
