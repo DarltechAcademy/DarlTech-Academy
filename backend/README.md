@@ -1,133 +1,197 @@
 # DarlTech Academy - Backend API
 
-The backend for DarlTech Academy, a web-based Learning Management System (LMS) providing structured tech education. It is built using Node.js, Express, and MongoDB, handling role-based authentication, courses, and platform operations.
+This is the backend (server-side) of **DarlTech Academy**, an online learning platform where students can enroll in tech courses, learn through structured modules and lessons, and grow their skills.
+
+Built with **Node.js**, **Express**, and **MongoDB**.
 
 ---
 
-## 🚀 Sprint 1: Project Setup & Authentication [Completed]
-This sprint laid the foundation for a secure, role-based backend architecture.
+## 🧠 What Does This Backend Do?
 
-### Key Features Implemented:
-*   **Layered MVC Architecture:** Organized structure segregating `controllers`, `models`, `routes`, `middleware`, and `utils`.
-*   **Authentication Flow (JWT):** Registration, login, and profile endpoints.
-*   **Role-Based Access Control (RBAC):** Implementation of `authMiddleware` and `roleMiddleware`.
-*   **Swagger Documentation:** Interactive API docs at `/api-docs`.
+Think of this backend as the **brain** behind the DarlTech Academy website. It handles:
+
+- **Who can sign up and log in** (Authentication)
+- **Who can do what** — Students can browse courses, but only Tutors and Admins can create or edit them (Authorization)
+- **Storing and serving course content** — Courses are broken down into Modules (chapters), and each Module contains Lessons (individual topics)
 
 ---
 
-## 📚 Sprint 2: Course Management [In Progress]
-Focusing on the core Learning Management functionality.
+## 🚀 Sprint 1: Project Setup & Authentication ✅
+
+This was the first phase of development. We built the foundation:
+
+### What we did:
+1. **Set up the project structure** — Organized the code into clean folders so it's easy to navigate and scale.
+2. **Created a User system** — Users can sign up with a name, email, and password. Passwords are encrypted (hashed) before being stored, so even the database admin can't see them.
+3. **Added three user roles:**
+   - 🎓 **Student** — Can browse and enroll in courses
+   - 👨‍🏫 **Tutor** — Can create and manage their own courses
+   - 🔑 **Admin** — Has full control over everything
+4. **Built Login & Registration APIs** — When a user logs in, they receive a **JWT token** (a secure pass) that proves their identity for future requests.
+5. **Protected routes** — Certain actions (like viewing your profile) require a valid token. Without it, you get blocked.
+6. **Added Swagger docs** — An interactive page where you can test every API endpoint directly in your browser.
+
+---
+
+## 📚 Sprint 2: Course Management 🔧 (Completed)
+
+This is where the actual learning platform takes shape. We built the system that manages all course content.
 
 ### Available Course Categories:
-`UI/UX Design` · `Cybersecurity` · `Frontend Development` · `Backend Development` · `Graphic Design`
+- 🎨 UI/UX Design
+- 🔒 Cybersecurity
+- 💻 Frontend Development
+- ⚙️ Backend Development
+- 🖌️ Graphic Design
 
-### Key Features Implemented:
-*   **Course Model:** Schema with title, description, category (enum), price, level, status, and tutor reference.
-*   **Module Model:** Hierarchical structure linking modules to courses with ordering support.
-*   **Lesson Model:** Rich content support including text, video URLs, and downloadable resource arrays.
-*   **Full CRUD APIs:** Create, Read, Update, Delete endpoints for Courses, Modules, and Lessons.
-*   **Ownership Protection:** Only the tutor who created a course (or an Admin) can modify/delete it and its content.
-*   **Swagger Documentation:** All new endpoints documented with schemas, query params, and auth requirements.
-*   [ ] **File Uploads:** (Next) Handling for thumbnails and course materials.
+### How Course Content is Organized:
+
+```
+Course (e.g. "Frontend Development")
+  └── Module (e.g. "HTML Basics")          ← A chapter/section
+        └── Lesson (e.g. "Your First HTML Page")  ← An individual topic
+              ├── Written content (text/notes)
+              ├── Video URL (e.g. YouTube link)
+              └── Downloadable resources (PDFs, files, etc.)
+```
+
+### What we built:
+1. **Course Model** — Defines what a course looks like in the database: title, description, category, price, difficulty level (Beginner/Intermediate/Advanced), and whether it's a Draft or Published.
+2. **Module Model** — Each course has multiple modules (think of them as chapters). Modules are ordered (Module 1, Module 2, etc.).
+3. **Lesson Model** — Each module has multiple lessons. A lesson can include written text, a video link, and downloadable files.
+4. **Full CRUD APIs** — "CRUD" stands for Create, Read, Update, Delete. We built all four operations for Courses, Modules, and Lessons.
+5. **Ownership protection** — A Tutor can only edit or delete courses **they created**. They can't touch another Tutor's content. Admins can manage everything.
+6. **Input validation** — Checks that all required fields are filled in correctly before saving anything.
+7. **File Uploads** — Set up `/api/upload` to receive files and store them in the `/uploads` folder.
 
 ---
 
-## 🛠️ Environment Variables Configuration (Important)
-To get the backend working locally, you'll need to define your own `.env` values.
+## 🛠️ How to Set Up the Project
 
-Create or verify the `.env` file at the root of `backend/` and set:
+### Step 1: Install Dependencies
+Open your terminal in the `/backend` folder and run:
+```bash
+npm install
+```
+
+### Step 2: Create Your Environment File
+Create a file called `.env` in the `backend/` folder with the following content:
 ```env
 PORT=5001
 NODE_ENV=development
-JWT_SECRET=your_super_secret_jwt_key
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/darltech
+JWT_SECRET=replace_this_with_any_random_secret_string
+MONGO_URI=mongodb+srv://<your-username>:<your-password>@<your-cluster>.mongodb.net/darltech
 ```
-> **Action Required:** Make sure you update the `MONGO_URI` to point to an active MongoDB cluster!
+> ⚠️ **Important:** Replace the `MONGO_URI` with your actual MongoDB Atlas connection string. Never share this file publicly.
 
----
-
-## 🏃 Running the Application
-
-Make sure your terminal is inside the `/backend` directory:
+### Step 3: Start the Server
 ```bash
-# Install dependencies
-npm install
-
-# Run the development server (automatically restarts on changes)
+# Development mode (auto-restarts when you make changes)
 npm run dev
 
-# Or run the production server
+# Production mode
 npm start
 ```
-The console will log `MongoDB Connected` when your database connects properly!
+You'll see `MongoDB Connected` in the terminal when everything is working! 🎉
 
 ---
 
-## 📖 Swagger API Documentation
-Testing endpoints is interactive! Once the server starts on `PORT=5001`, navigate to your browser:
+## 📖 Testing the API (Swagger)
+
+Once the server is running, open your browser and go to:
 
 👉 **[http://localhost:5001/api-docs](http://localhost:5001/api-docs)**
 
-### API Endpoint Summary:
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | `/api/auth/register` | Public | Register a new user |
-| POST | `/api/auth/login` | Public | Login and get JWT |
-| GET | `/api/auth/profile` | Private | Get logged-in user profile |
-| GET | `/api/courses` | Public | List all courses (filterable) |
-| GET | `/api/courses/:id` | Public | Get course with modules & lessons |
-| POST | `/api/courses` | Admin/Tutor | Create a new course |
-| PUT | `/api/courses/:id` | Owner/Admin | Update a course |
-| DELETE | `/api/courses/:id` | Owner/Admin | Delete a course |
-| GET | `/api/modules?course=ID` | Public | List modules for a course |
-| POST | `/api/modules` | Admin/Tutor | Create a module |
-| PUT | `/api/modules/:id` | Owner/Admin | Update a module |
-| DELETE | `/api/modules/:id` | Owner/Admin | Delete a module |
-| GET | `/api/lessons?module=ID` | Public | List lessons for a module |
-| POST | `/api/lessons` | Admin/Tutor | Create a lesson |
-| PUT | `/api/lessons/:id` | Owner/Admin | Update a lesson |
-| DELETE | `/api/lessons/:id` | Owner/Admin | Delete a lesson |
+This opens an interactive page where you can test every endpoint. Here's how:
+1. Find the endpoint you want to test (e.g. `POST /api/auth/register`)
+2. Click on it to expand it
+3. Click **"Try it out"**
+4. Fill in the JSON body
+5. Click **"Execute"**
+6. For protected routes, click the 🔒 **Authorize** button at the top and paste your JWT token
 
-1.  Find the route you want to interact with.
-2.  Expand it and press **"Try it out"**.
-3.  Fill in the Request Body JSON.
-4.  Hit Execute.
-5.  For protected routes, click the green **Authorize** lock icon and paste your JWT token!
+### All Available Endpoints:
+
+#### 🔐 Authentication
+| Method | Endpoint | Who Can Use It | What It Does |
+|--------|----------|---------------|--------------|
+| POST | `/api/auth/register` | Anyone | Create a new account |
+| POST | `/api/auth/login` | Anyone | Log in and get your token |
+| GET | `/api/auth/profile` | Logged-in users | View your own profile |
+
+#### 📚 Courses
+| Method | Endpoint | Who Can Use It | What It Does |
+|--------|----------|---------------|--------------|
+| GET | `/api/courses` | Anyone | Browse all courses (can filter by category, level, etc.) |
+| GET | `/api/courses/:id` | Anyone | View a single course with all its modules and lessons |
+| POST | `/api/courses` | Admin / Tutor | Create a new course |
+| PUT | `/api/courses/:id` | Course Owner / Admin | Edit a course |
+| DELETE | `/api/courses/:id` | Course Owner / Admin | Delete a course |
+
+#### 📦 Modules (Chapters within a Course)
+| Method | Endpoint | Who Can Use It | What It Does |
+|--------|----------|---------------|--------------|
+| GET | `/api/modules?course=COURSE_ID` | Anyone | Get all modules for a specific course |
+| GET | `/api/modules/:id` | Anyone | View a single module with its lessons |
+| POST | `/api/modules` | Admin / Tutor | Add a new module to a course |
+| PUT | `/api/modules/:id` | Course Owner / Admin | Edit a module |
+| DELETE | `/api/modules/:id` | Course Owner / Admin | Delete a module |
+
+#### 📝 Lessons (Topics within a Module)
+| Method | Endpoint | Who Can Use It | What It Does |
+|--------|----------|---------------|--------------|
+| GET | `/api/lessons?module=MODULE_ID` | Anyone | Get all lessons for a specific module |
+| GET | `/api/lessons/:id` | Anyone | View a single lesson |
+| POST | `/api/lessons` | Admin / Tutor | Add a new lesson to a module |
+| PUT | `/api/lessons/:id` | Course Owner / Admin | Edit a lesson |
+| DELETE | `/api/lessons/:id` | Course Owner / Admin | Delete a lesson |
+
+#### 📂 File Uploads
+| Method | Endpoint | Who Can Use It | What It Does |
+|--------|----------|---------------|--------------|
+| POST | `/api/upload` | Admin / Tutor | Upload a file (Image, PDF, Video) |
 
 ---
 
-## 📂 Project Structure Map
+## 📂 Project Structure
 
-```text
+```
 /backend
-├── .env                          # Environment Variables 
-├── .gitignore                    # Ignores Node modules and .env files
-├── index.js                      # Express app entry point
-├── package.json                  # Node Dependencies & Execution scripts
+├── .env                          # Secret configuration (not pushed to GitHub)
+├── .gitignore                    # Tells Git which files to ignore
+├── index.js                      # The starting point of the application
+├── package.json                  # Lists all the packages/tools we use
 └── src/
     ├── config/
-    │   ├── db.js                 # MongoDB connection
-    │   └── swagger.js            # Swagger/OpenAPI configuration
+    │   ├── db.js                 # Connects to the MongoDB database
+    │   └── swagger.js            # Sets up the API documentation page
     ├── controllers/
-    │   ├── authController.js     # Register, Login, Profile logic
-    │   ├── courseController.js   # Course CRUD logic
-    │   ├── moduleController.js   # Module CRUD logic
-    │   └── lessonController.js   # Lesson CRUD logic
+    │   ├── authController.js     # Handles signup, login, and profile
+    │   ├── courseController.js   # Handles creating/editing/deleting courses
+    │   ├── moduleController.js   # Handles creating/editing/deleting modules
+    │   └── lessonController.js   # Handles creating/editing/deleting lessons
     ├── middleware/
-    │   ├── authMiddleware.js     # JWT verification
-    │   ├── roleMiddleware.js     # Role-based access control
-    │   ├── validationMiddleware.js # Express-validator handler
-    │   └── errorMiddleware.js    # Global error handler
+    │   ├── authMiddleware.js     # Checks if the user is logged in (has a valid token)
+    │   ├── roleMiddleware.js     # Checks if the user has the right role (Admin, Tutor, etc.)
+    │   ├── validationMiddleware.js # Checks if the request data is valid
+    │   └── errorMiddleware.js    # Catches errors and sends clean error messages
     ├── models/
-    │   ├── User.js               # User schema (Admin, Tutor, Student)
-    │   ├── Course.js             # Course schema with categories
-    │   ├── Module.js             # Module schema (belongs to Course)
-    │   └── Lesson.js             # Lesson schema (belongs to Module)
+    │   ├── User.js               # Defines what a User looks like in the database
+    │   ├── Course.js             # Defines what a Course looks like
+    │   ├── Module.js             # Defines what a Module looks like
+    │   └── Lesson.js             # Defines what a Lesson looks like
     ├── routes/
-    │   ├── authRoutes.js         # /api/auth endpoints
-    │   ├── courseRoutes.js       # /api/courses endpoints
-    │   ├── moduleRoutes.js       # /api/modules endpoints
-    │   └── lessonRoutes.js       # /api/lessons endpoints
+    │   ├── authRoutes.js         # Maps URLs to auth controller functions
+    │   ├── courseRoutes.js       # Maps URLs to course controller functions
+    │   ├── moduleRoutes.js       # Maps URLs to module controller functions
+    │   ├── lessonRoutes.js       # Maps URLs to lesson controller functions
+    │   └── uploadRoutes.js       # Maps URLs to file upload handler
     └── utils/
-        └── generateToken.js      # JWT token generator
+        └── generateToken.js      # Creates JWT tokens for authenticated users
 ```
+
+---
+
+## 🤝 Contributing
+
+This project is being developed by the **DarlTech Academy** team. Each team member works on their own branch and submits Pull Requests for review before merging into main.

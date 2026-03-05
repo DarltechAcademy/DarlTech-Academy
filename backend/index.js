@@ -40,6 +40,14 @@ app.use('/api/modules', moduleRoutes);
 const lessonRoutes = require('./src/routes/lessonRoutes');
 app.use('/api/lessons', lessonRoutes);
 
+// Upload Routes
+const uploadRoutes = require('./src/routes/uploadRoutes');
+app.use('/api/upload', uploadRoutes);
+
+// Make uploads folder static so files can be accessed via URL
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Error Handling Middleware
 app.use(notFound);
 app.use(errorHandler);
