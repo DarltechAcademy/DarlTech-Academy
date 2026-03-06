@@ -11,6 +11,7 @@ const {
 const { protect } = require('../middleware/authMiddleware');
 const { authorize } = require('../middleware/roleMiddleware');
 const { validate } = require('../middleware/validationMiddleware');
+const { checkEnrollment } = require('../middleware/enrollmentMiddleware');
 
 /**
  * @swagger
@@ -105,8 +106,9 @@ const { validate } = require('../middleware/validationMiddleware');
  *         description: Lesson created successfully
  *       401:
  *         description: Not authorized
+ *         description: Not authorized
  *       403:
- *         description: Forbidden
+ *         description: Forbidden (Not enrolled)
  *       404:
  *         description: Module not found
  */
@@ -181,9 +183,9 @@ const { validate } = require('../middleware/validationMiddleware');
  *         description: Lesson not found
  */
 
-// Public routes
-router.get('/', getLessons);
-router.get('/:id', getLesson);
+// Protected access routines (Must be enrolled or own the course)
+router.get('/', protect, checkEnrollment, getLessons);
+router.get('/:id', protect, checkEnrollment, getLesson);
 
 // Protected routes (Admin & Tutor only)
 router.post(

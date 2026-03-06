@@ -11,6 +11,7 @@ const {
 const { protect } = require('../middleware/authMiddleware');
 const { authorize } = require('../middleware/roleMiddleware');
 const { validate } = require('../middleware/validationMiddleware');
+const { checkEnrollment } = require('../middleware/enrollmentMiddleware');
 
 /**
  * @swagger
@@ -154,9 +155,9 @@ const { validate } = require('../middleware/validationMiddleware');
  *         description: Module not found
  */
 
-// Public routes
-router.get('/', getModules);
-router.get('/:id', getModule);
+// Protected access routines (Must be enrolled or own the course)
+router.get('/', protect, checkEnrollment, getModules);
+router.get('/:id', protect, checkEnrollment, getModule);
 
 // Protected routes (Admin & Tutor only)
 router.post(

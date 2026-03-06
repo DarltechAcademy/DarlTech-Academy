@@ -66,6 +66,18 @@ Course (e.g. "Frontend Development")
 
 ---
 
+## 📚 Sprint 3: Enrollment & Access Control 🚦 (Completed)
+
+This sprint focused on the Student experience, allowing them to officially join courses and building the security guards to protect the content from un-enrolled users.
+
+### What we built:
+1. **Enrollment Model** — A ledger tracking which student is enrolled in which course, and what their progress percentage is. It includes database-level protection to prevent a student from enrolling in the same course twice.
+2. **Access Control Middleware** — A smart security guard (`checkEnrollment`) that intercepts anyone trying to read a Lesson or a Module. It checks if the user is 1) An Admin, 2) The Tutor who owns it, or 3) Actively enrolled. If not, it returns a `403 Forbidden` error.
+3. **Student Dashboard APIs** — Endpoints for the frontend to easily fetch "My Courses".
+4. **Tutor Roster API** — Allows a tutor to see exactly which students are taking their course.
+
+---
+
 ## 🛠️ How to Set Up the Project
 
 ### Step 1: Install Dependencies
@@ -151,6 +163,14 @@ This opens an interactive page where you can test every endpoint. Here's how:
 |--------|----------|---------------|--------------|
 | POST | `/api/upload` | Admin / Tutor | Upload a file (Image, PDF, Video) |
 
+#### 🎓 Enrollments & Dashboards
+| Method | Endpoint | Who Can Use It | What It Does |
+|--------|----------|---------------|--------------|
+| POST | `/api/enrollments` | Student | Enroll in a course (requires `course` ID in body) |
+| GET | `/api/enrollments/my-enrollments` | Student | Fetch all courses the logged-in student is taking |
+| GET | `/api/enrollments/check/:courseId` | Anyone | Verify if the logged-in user is enrolled in a specific course |
+| GET | `/api/enrollments/course/:courseId` | Course Owner / Admin | View a roster of all students taking a specific course |
+
 ---
 
 ## 📂 Project Structure
@@ -169,10 +189,12 @@ This opens an interactive page where you can test every endpoint. Here's how:
     │   ├── authController.js     # Handles signup, login, and profile
     │   ├── courseController.js   # Handles creating/editing/deleting courses
     │   ├── moduleController.js   # Handles creating/editing/deleting modules
-    │   └── lessonController.js   # Handles creating/editing/deleting lessons
+    │   ├── lessonController.js   # Handles creating/editing/deleting lessons
+    │   └── enrollmentController.js # Handles student enrollments and dashboard
     ├── middleware/
     │   ├── authMiddleware.js     # Checks if the user is logged in (has a valid token)
     │   ├── roleMiddleware.js     # Checks if the user has the right role (Admin, Tutor, etc.)
+    │   ├── enrollmentMiddleware.js # Blocks unenrolled students from viewing lessons
     │   ├── validationMiddleware.js # Checks if the request data is valid
     │   └── errorMiddleware.js    # Catches errors and sends clean error messages
     ├── models/
@@ -185,6 +207,7 @@ This opens an interactive page where you can test every endpoint. Here's how:
     │   ├── courseRoutes.js       # Maps URLs to course controller functions
     │   ├── moduleRoutes.js       # Maps URLs to module controller functions
     │   ├── lessonRoutes.js       # Maps URLs to lesson controller functions
+    │   ├── enrollmentRoutes.js   # Maps URLs to enrollment handlers
     │   └── uploadRoutes.js       # Maps URLs to file upload handler
     └── utils/
         └── generateToken.js      # Creates JWT tokens for authenticated users
