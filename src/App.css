@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "tailwindcss";
+
+/* FLOAT ANIMATION */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.float-delay {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+:root {
+
+  /* =========================
+     BRAND COLORS
+  ========================== */
+  --primary: #142B4D;           /* Deep Navy */
+  --primary-light: #1E3A66;
+  --primary-dark: #0F1F36;
+
+  --accent: #FF3B3F;            /* Bright Red */
+  --accent-hover: #E02E32;
+  --accent-light: #FF6B6E;
+
+  /* =========================
+     BACKGROUNDS
+  ========================== */
+  --bg-main: #FFFFFF;
+  --bg-section: #F5F7FA;
+  --bg-dark: #142B4D;
+
+
+  
+  --bg-card: #FFFFFF;
+
+  /* =========================
+     TEXT COLORS
+  ========================== */
+  --text-primary: #142B4D;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-light: #FFFFFF;
+
+  /* =========================
+     BORDER & DIVIDERS
+  ========================== */
+  --border-light: #E5E7EB;
+  --border-dark: #1E293B;
+
+  /* =========================
+     BUTTONS
+  ========================== */
+
+  /* Primary Button (Main CTA) */
+  --btn-primary-bg: #FF3B3F;
+  --btn-primary-hover: #E02E32;
+  --btn-primary-text: #FFFFFF;
+
+  /* Secondary Button */
+  --btn-secondary-bg: #142B4D;
+  --btn-secondary-hover: #1E3A66;
+  --btn-secondary-text: #FFFFFF;
+
+  /* Outline Button */
+  --btn-outline-border: #FF3B3F;
+  --btn-outline-text: #FF3B3F;
+  --btn-outline-hover-bg: #FF3B3F;
+  --btn-outline-hover-text: #FFFFFF;
+
+  /* =========================
+     SHADOWS
+  ========================== */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+
