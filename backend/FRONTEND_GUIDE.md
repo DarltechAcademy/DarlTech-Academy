@@ -80,6 +80,23 @@ This guide outlines exactly which fields the frontend application needs to colle
 
 ---
 
+## 🎓 Enrollments & Dashboards
+
+### 7. Join Course (`POST /api/enrollments`)
+**Purpose:** Enrolling a student in a course.
+| Dashboard Field | API Key | Type | Requirement | Notes |
+|-----------------|---------|------|-------------|-------|
+| Course Reference | `course` | String | **Required** | The database `_id` of the course to join |
+
+*Note: The user ID is automatically extracted from the JWT token. Do not send the user ID in the body.*
+
+### 8. Fetch My Dashbord (`GET /api/enrollments/my-enrollments`)
+**Purpose:** Getting the list of active courses for the logged-in student.
+- **Parameters:** None (Uses JWT token)
+- **Returns:** An array of Enrollment objects, populated with Course details (title, category, thumbnail, etc.)
+
+---
+
 ## 🚦 Error Handling & Interception
 
 ### 1. HTTP 401 Unauthorized

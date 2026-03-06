@@ -71,6 +71,11 @@ The database relies heavily on document references (`ObjectId`) and Mongoose **V
    - Relations:
      - `module` (Reference to `Module` model)
 
+5. **Enrollment (Sprint 3)**
+   - Fields: `status` ('Active', 'Completed', 'Cancelled'), `progress`
+   - Relations: `user` (Ref to User), `course` (Ref to Course)
+   - Indexes: Compound Unique Index on `{ user: 1, course: 1 }` to prevent double-enrollment.
+
 ## 5. Security Architecture
 
 ### Authentication Flow
@@ -83,7 +88,7 @@ Strict endpoint-level authorization enforced by the `authorize()` middleware in 
 
 | Role | Permissions | Note |
 |------|-------------|------|
-| **Student** | Read-only access to published courses. | Cannot access creation endpoints. |
+| **Student** | Access to published courses **IF ENROLLED**. | Cannot view lesson content without an active `Enrollment` document. |
 | **Tutor** | Read, Create, Update, Delete within their domain. | Tutors are restricted to modifying **only** the courses they created. |
 | **Admin** | Unrestricted CRUD capabilities. | Full override privileges across the platform. |
 
@@ -108,7 +113,15 @@ The project is being developed in Agile Sprints.
 - Parent-Child ownership verification layers (e.g., verifying a Tutor owns the parent Course before allowing Lesson modifications).
 - Multipart/form-data upload pipeline for course assets.
 
-### 🚧 Pending (Sprints 3-6)
+### ✅ Sprint 3: Enrollment & Access Models
+- **Enrollment Schema:** Created strict ledger coupling Students to Courses.
+- **`checkEnrollment` Middleware:** An interceptor that intercepts requests to `/api/modules/:id` and `/api/lessons/:id`. It traces the document back to its parent course and verifies the requestor is either:
+  1. An Admin (Universal bypass)
+  2. The Tutor who created the content
+  3. A Student with an `Active` enrollment record.
+- **Dashboard APIs:** Implemented `/my-enrollments` to feed the Student UI.
+
+### 🚧 Pending (Sprints 4-6)
 Future technical implementations:
 - Complex aggregation pipelines for Student progress tracking.
 - Database transactions (ACID) for Enrollment and Payment gateways.
