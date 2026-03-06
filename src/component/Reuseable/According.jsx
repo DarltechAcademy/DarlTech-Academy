@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function AccordionItem({ title, children }) {
   const [open, setOpen] = useState(false);
@@ -9,8 +10,15 @@ export default function AccordionItem({ title, children }) {
         onClick={() => setOpen(!open)}
         className="w-full flex justify-between items-center py-5 text-left"
       >
-        <span className="text-lg font-medium">{title}</span>
-        <span className="text-xl">{open ? "−" : "+"}</span>
+        <span className="text-lg font-medium text-[var(--text-primary)]">
+          {title}
+        </span>
+
+        <ChevronDown
+          className={`transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       <div
@@ -18,7 +26,7 @@ export default function AccordionItem({ title, children }) {
           open ? "max-h-40 opacity-100 pb-5" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="text-gray-600">{children}</div>
+        <div className="text-[var(--text-muted)]">{children}</div>
       </div>
     </div>
   );

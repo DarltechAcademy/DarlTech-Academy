@@ -5,6 +5,13 @@ import Img from "../assets/image/img2.png"
 import { Code, Rocket, Briefcase, Star } from "lucide-react";
 import Engineer from "../component/engineer";
 import Learn from "../component/Learn";
+import HowWeExcel from "../component/HowWeExcel";
+import Howitwork from "../component/Howitwork";
+import FAQ from "../component/Faq";
+import CourseStacks from "../component/course";
+import Footer from "../component/Footer";
+import Contact from "../component/Contact";
+
 
 export default function Home() {
   return (
@@ -81,31 +88,42 @@ export default function Home() {
 </div>
 
         </div>
-         <section className=" py-9">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6">
+         <section className="py-9">
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6">
 
-          <Card
-            title="Learn at your own pace"
-            desc="Access wide range of tech courses."
-          />
+    <Card
+      icon={Code}
+      title="Learn at your own pace"
+      desc="Access wide range of tech courses."
+    />
 
-          <Card
-            title="Flexible Learning"
-            desc="Study anytime, anywhere at your convenience."
-          />
+    <Card
+      icon={Rocket}
+      title="Flexible Learning"
+      desc="Study anytime, anywhere at your convenience."
+    />
 
-          <Card
-            title="Build Your Future"
-            desc="Gain skills that employers want."
-          />
+    <Card
+      icon={Briefcase}
+      title="Build Your Future"
+      desc="Gain skills that employers want."
+    />
 
-        </div>
-      </section>
+
+
+  </div>
+</section>
       </section>
 
      
-     
+     <Learn/>
+  <Howitwork/>
   <Engineer/>
+  <HowWeExcel/>
+  <FAQ/>
+  <CourseStacks/>
+  <Contact/>
+
     </div>
   
   );

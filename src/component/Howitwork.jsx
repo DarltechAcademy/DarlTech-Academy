@@ -1,38 +1,36 @@
 import { useEffect, useState } from "react";
 import AccordionItem from "./Reuseable/According";
+import Img1 from "../assets/image/img1.png";
+// import Img2 from "../assets/image/img2.png";
+// import Img3 from "../assets/image/img3.png";
 
 export default function Howitwork() {
-  const images = [
-    "/images/img1.jpg",
-    "/images/img2.jpg",
-    "/images/img3.jpg",
-  ];
+  // const images = [Img1, Img2, Img3];
+  // const [index, setIndex] = useState(0);
 
-  const [index, setIndex] = useState(0);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setIndex((prev) => (prev + 1) % images.length);
+  //   }, 4000);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
-    <section className="w-full min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-start">
+    <section className="w-full py-20 bg-[var(--bg-section)] px-6">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
         {/* LEFT SIDE */}
         <div>
-          <p className="text-sm tracking-widest text-gray-400 mb-2">
+          <p className="text-sm tracking-widest text-[var(--text-muted)] mb-2">
             THE TRAINING BOOTCAMP
           </p>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-[var(--text-primary)]">
             How It Works
           </h1>
 
-          <p className="text-gray-600 leading-relaxed mb-10">
+          <p className="text-[var(--text-secondary)] leading-relaxed mb-10">
             We screen fast learners with dedication, resilience and curiosity.
           </p>
 
@@ -51,18 +49,18 @@ export default function Howitwork() {
 
         {/* RIGHT SIDE */}
         <div className="relative flex items-center justify-center">
+
           <img
-            key={index}
-            src={images[index]}
+            src={Img1}
             alt="student"
-            className="w-full max-w-md rounded-xl shadow-lg animate-float transition-all duration-700"
+            className="w-full max-w-md rounded-2xl shadow-[var(--shadow-medium)]"
           />
 
-          <div className="absolute">
-            <button className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center shadow-lg hover:scale-110 transition animate-pulse">
-              ▶
-            </button>
-          </div>
+          {/* Center Play Button */}
+          {/* <button className="absolute w-16 h-16 rounded-full bg-[var(--accent)] text-white flex items-center justify-center shadow-md hover:bg-[var(--accent-hover)] transition">
+            ▶
+          </button> */}
+
         </div>
 
       </div>
