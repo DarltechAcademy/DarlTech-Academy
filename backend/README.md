@@ -6,170 +6,104 @@ Built with **Node.js**, **Express**, and **MongoDB**.
 
 ---
 
-## 🧠 What Does This Backend Do?
+## 🚀 Sprints Overview
 
-Think of this backend as the **brain** behind the DarlTech Academy website. It handles:
+### ✅ Sprint 1: Project Setup & Authentication
+Foundation for a secure, role-based backend (JWT, RBAC).
 
-- **Who can sign up and log in** (Authentication)
-- **Who can do what** — Students can browse courses, but only Tutors and Admins can create or edit them (Authorization)
-- **Storing and serving course content** — Courses are broken down into Modules (chapters), and each Module contains Lessons (individual topics)
+### ✅ Sprint 2: Course Management
+Blueprints and APIs for Courses, Modules (chapters), and Lessons.
 
----
+### ✅ Sprint 3: Enrollment & Access Control
+Logic for students to join courses and security guards to protect content.
 
-## 🚀 Sprint 1: Project Setup & Authentication ✅
+### ⏸️ Sprint 4 & 5: (Paused)
+Quizzes, Assignments, and Internship tracking features are currently in queue.
 
-This was the first phase of development. We built the foundation:
-
-### What we did:
-1. **Set up the project structure** — Organized the code into clean folders so it's easy to navigate and scale.
-2. **Created a User system** — Users can sign up with a name, email, and password. Passwords are encrypted (hashed) before being stored, so even the database admin can't see them.
-3. **Added three user roles:**
-   - 🎓 **Student** — Can browse and enroll in courses
-   - 👨‍🏫 **Tutor** — Can create and manage their own courses
-   - 🔑 **Admin** — Has full control over everything
-4. **Built Login & Registration APIs** — When a user logs in, they receive a **JWT token** (a secure pass) that proves their identity for future requests.
-5. **Protected routes** — Certain actions (like viewing your profile) require a valid token. Without it, you get blocked.
-6. **Added Swagger docs** — An interactive page where you can test every API endpoint directly in your browser.
+### ✅ Sprint 6: Payments & Security Polish
+Integrated **Paystack** for course purchases and implemented a **Production-Grade Security Audit**.
 
 ---
 
-## 📚 Sprint 2: Course Management 🔧 (Completed)
+## 🛡️ Security Implementation (Sprint 6)
 
-This is where the actual learning platform takes shape. We built the system that manages all course content.
+We have implemented the following security measures to protect the platform:
 
-### Available Course Categories:
-- 🎨 UI/UX Design
-- 🔒 Cybersecurity
-- 💻 Frontend Development
-- ⚙️ Backend Development
-- 🖌️ Graphic Design
-
-### How Course Content is Organized:
-
-```
-Course (e.g. "Frontend Development")
-  └── Module (e.g. "HTML Basics")          ← A chapter/section
-        └── Lesson (e.g. "Your First HTML Page")  ← An individual topic
-              ├── Written content (text/notes)
-              ├── Video URL (e.g. YouTube link)
-              └── Downloadable resources (PDFs, files, etc.)
-```
-
-### What we built:
-1. **Course Model** — Defines what a course looks like in the database: title, description, category, price, difficulty level (Beginner/Intermediate/Advanced), and whether it's a Draft or Published.
-2. **Module Model** — Each course has multiple modules (think of them as chapters). Modules are ordered (Module 1, Module 2, etc.).
-3. **Lesson Model** — Each module has multiple lessons. A lesson can include written text, a video link, and downloadable files.
-4. **Full CRUD APIs** — "CRUD" stands for Create, Read, Update, Delete. We built all four operations for Courses, Modules, and Lessons.
-5. **Ownership protection** — A Tutor can only edit or delete courses **they created**. They can't touch another Tutor's content. Admins can manage everything.
-6. **Input validation** — Checks that all required fields are filled in correctly before saving anything.
-7. **File Uploads** — Set up `/api/upload` to receive files and store them in the `/uploads` folder.
+1.  **Helmet:** Sets various HTTP headers to prevent common attacks like Clickjacking and XSS.
+2.  **Rate Limiting:** Prevents brute-force and DDoS attacks by limiting requests from a single IP.
+3.  **Mongo Sanitize:** Strips out dangerous `$` and `.` characters from user input to prevent NoSQL injection.
+4.  **XSS Protection:** Cleans user-provided data to prevent malicious scripts from running in browsers.
+5.  **HPP (HTTP Parameter Pollution):** Prevents attackers from manipulating API parameters.
+6.  **CORS Protection:** Restricted access to authorized domains.
 
 ---
 
-## 📚 Sprint 3: Enrollment & Access Control 🚦 (Completed)
+## 💳 Payments Integration (Paystack)
 
-This sprint focused on the Student experience, allowing them to officially join courses and building the security guards to protect the content from un-enrolled users.
-
-### What we built:
-1. **Enrollment Model** — A ledger tracking which student is enrolled in which course, and what their progress percentage is. It includes database-level protection to prevent a student from enrolling in the same course twice.
-2. **Access Control Middleware** — A smart security guard (`checkEnrollment`) that intercepts anyone trying to read a Lesson or a Module. It checks if the user is 1) An Admin, 2) The Tutor who owns it, or 3) Actively enrolled. If not, it returns a `403 Forbidden` error.
-3. **Student Dashboard APIs** — Endpoints for the frontend to easily fetch "My Courses".
-4. **Tutor Roster API** — Allows a tutor to see exactly which students are taking their course.
+Students can now purchase paid courses using Paystack. 
+1.  **Initialize:** Frontend calls the initialize API to get a Paystack checkout URL.
+2.  **Checkout:** Student pays on Paystack.
+3.  **Verify:** Frontend redirects to a verification page which calls the backend to confirm payment and unlock the course.
 
 ---
 
 ## 🛠️ How to Set Up the Project
 
 ### Step 1: Install Dependencies
-Open your terminal in the `/backend` folder and run:
 ```bash
 npm install
 ```
 
-### Step 2: Create Your Environment File
-Create a file called `.env` in the `backend/` folder with the following content:
+### Step 2: Environment Variables (`.env`)
 ```env
 PORT=5001
 NODE_ENV=development
-JWT_SECRET=replace_this_with_any_random_secret_string
-MONGO_URI=mongodb+srv://<your-username>:<your-password>@<your-cluster>.mongodb.net/darltech
+JWT_SECRET=your_jwt_secret
+MONGO_URI=your_mongodb_uri
+
+# Paystack Configuration
+PAYSTACK_SECRET_KEY=your_paystack_secret_key
+PAYSTACK_CALLBACK_URL=http://localhost:3000/payment/callback
 ```
-> ⚠️ **Important:** Replace the `MONGO_URI` with your actual MongoDB Atlas connection string. Never share this file publicly.
 
 ### Step 3: Start the Server
 ```bash
-# Development mode (auto-restarts when you make changes)
 npm run dev
-
-# Production mode
-npm start
 ```
-You'll see `MongoDB Connected` in the terminal when everything is working! 🎉
 
 ---
 
-## 📖 Testing the API (Swagger)
+## 📖 All Available Endpoints
 
-Once the server is running, open your browser and go to:
-
-👉 **[http://localhost:5001/api-docs](http://localhost:5001/api-docs)**
-
-This opens an interactive page where you can test every endpoint. Here's how:
-1. Find the endpoint you want to test (e.g. `POST /api/auth/register`)
-2. Click on it to expand it
-3. Click **"Try it out"**
-4. Fill in the JSON body
-5. Click **"Execute"**
-6. For protected routes, click the 🔒 **Authorize** button at the top and paste your JWT token
-
-### All Available Endpoints:
+👉 **Check live docs at: [http://localhost:5001/api-docs](http://localhost:5001/api-docs)**
 
 #### 🔐 Authentication
-| Method | Endpoint | Who Can Use It | What It Does |
-|--------|----------|---------------|--------------|
-| POST | `/api/auth/register` | Anyone | Create a new account |
-| POST | `/api/auth/login` | Anyone | Log in and get your token |
-| GET | `/api/auth/profile` | Logged-in users | View your own profile |
+| Method | Endpoint | What It Does |
+|--------|----------|--------------|
+| POST | `/api/auth/register` | Create a new account |
+| POST | `/api/auth/login` | Log in and get your token |
+| GET | `/api/auth/profile` | View your own profile |
 
-#### 📚 Courses
-| Method | Endpoint | Who Can Use It | What It Does |
-|--------|----------|---------------|--------------|
-| GET | `/api/courses` | Anyone | Browse all courses (can filter by category, level, etc.) |
-| GET | `/api/courses/:id` | Anyone | View a single course with all its modules and lessons |
-| POST | `/api/courses` | Admin / Tutor | Create a new course |
-| PUT | `/api/courses/:id` | Course Owner / Admin | Edit a course |
-| DELETE | `/api/courses/:id` | Course Owner / Admin | Delete a course |
+#### 📚 Courses, Modules & Lessons
+| Method | Endpoint | What It Does |
+|--------|----------|--------------|
+| GET | `/api/courses` | Browse all courses |
+| GET | `/api/courses/:id` | View a single course |
+| GET | `/api/modules?course=...` | Get chapters for a course |
+| GET | `/api/lessons?module=...` | Get topics for a chapter |
 
-#### 📦 Modules (Chapters within a Course)
-| Method | Endpoint | Who Can Use It | What It Does |
-|--------|----------|---------------|--------------|
-| GET | `/api/modules?course=COURSE_ID` | Anyone | Get all modules for a specific course |
-| GET | `/api/modules/:id` | Anyone | View a single module with its lessons |
-| POST | `/api/modules` | Admin / Tutor | Add a new module to a course |
-| PUT | `/api/modules/:id` | Course Owner / Admin | Edit a module |
-| DELETE | `/api/modules/:id` | Course Owner / Admin | Delete a module |
+#### 📂 File & Enrollment
+| Method | Endpoint | What It Does |
+|--------|----------|--------------|
+| POST | `/api/upload` | Upload Images/PDFs/Videos |
+| POST | `/api/enrollments` | Enroll in a course |
+| GET | `/api/enrollments/my-enrollments` | Your active courses |
 
-#### 📝 Lessons (Topics within a Module)
-| Method | Endpoint | Who Can Use It | What It Does |
-|--------|----------|---------------|--------------|
-| GET | `/api/lessons?module=MODULE_ID` | Anyone | Get all lessons for a specific module |
-| GET | `/api/lessons/:id` | Anyone | View a single lesson |
-| POST | `/api/lessons` | Admin / Tutor | Add a new lesson to a module |
-| PUT | `/api/lessons/:id` | Course Owner / Admin | Edit a lesson |
-| DELETE | `/api/lessons/:id` | Course Owner / Admin | Delete a lesson |
-
-#### 📂 File Uploads
-| Method | Endpoint | Who Can Use It | What It Does |
-|--------|----------|---------------|--------------|
-| POST | `/api/upload` | Admin / Tutor | Upload a file (Image, PDF, Video) |
-
-#### 🎓 Enrollments & Dashboards
-| Method | Endpoint | Who Can Use It | What It Does |
-|--------|----------|---------------|--------------|
-| POST | `/api/enrollments` | Student | Enroll in a course (requires `course` ID in body) |
-| GET | `/api/enrollments/my-enrollments` | Student | Fetch all courses the logged-in student is taking |
-| GET | `/api/enrollments/check/:courseId` | Anyone | Verify if the logged-in user is enrolled in a specific course |
-| GET | `/api/enrollments/course/:courseId` | Course Owner / Admin | View a roster of all students taking a specific course |
+#### 💳 Payments (Paystack)
+| Method | Endpoint | What It Does |
+|--------|----------|--------------|
+| POST | `/api/payments/initialize/:courseId` | Get Paystack checkout URL |
+| GET | `/api/payments/verify/:reference` | Verify payment & unlock course |
 
 ---
 
@@ -177,44 +111,25 @@ This opens an interactive page where you can test every endpoint. Here's how:
 
 ```
 /backend
-├── .env                          # Secret configuration (not pushed to GitHub)
-├── .gitignore                    # Tells Git which files to ignore
-├── index.js                      # The starting point of the application
-├── package.json                  # Lists all the packages/tools we use
+├── .env                          # Secret configuration
+├── index.js                      # Application entry point
 └── src/
-    ├── config/
-    │   ├── db.js                 # Connects to the MongoDB database
-    │   └── swagger.js            # Sets up the API documentation page
     ├── controllers/
-    │   ├── authController.js     # Handles signup, login, and profile
-    │   ├── courseController.js   # Handles creating/editing/deleting courses
-    │   ├── moduleController.js   # Handles creating/editing/deleting modules
-    │   ├── lessonController.js   # Handles creating/editing/deleting lessons
-    │   └── enrollmentController.js # Handles student enrollments and dashboard
+    │   ├── authController.js     # Signup/Login
+    │   ├── courseController.js   # Content Management
+    │   ├── enrollmentController.js # Student progress
+    │   └── paymentController.js  # Paystack integration [NEW]
     ├── middleware/
-    │   ├── authMiddleware.js     # Checks if the user is logged in (has a valid token)
-    │   ├── roleMiddleware.js     # Checks if the user has the right role (Admin, Tutor, etc.)
-    │   ├── enrollmentMiddleware.js # Blocks unenrolled students from viewing lessons
-    │   ├── validationMiddleware.js # Checks if the request data is valid
-    │   └── errorMiddleware.js    # Catches errors and sends clean error messages
+    │   ├── authMiddleware.js     # JWT check
+    │   ├── enrollmentMiddleware.js # Access guard
+    │   └── errorMiddleware.js    # Error handler
     ├── models/
-    │   ├── User.js               # Defines what a User looks like in the database
-    │   ├── Course.js             # Defines what a Course looks like
-    │   ├── Module.js             # Defines what a Module looks like
-    │   └── Lesson.js             # Defines what a Lesson looks like
-    ├── routes/
-    │   ├── authRoutes.js         # Maps URLs to auth controller functions
-    │   ├── courseRoutes.js       # Maps URLs to course controller functions
-    │   ├── moduleRoutes.js       # Maps URLs to module controller functions
-    │   ├── lessonRoutes.js       # Maps URLs to lesson controller functions
-    │   ├── enrollmentRoutes.js   # Maps URLs to enrollment handlers
-    │   └── uploadRoutes.js       # Maps URLs to file upload handler
-    └── utils/
-        └── generateToken.js      # Creates JWT tokens for authenticated users
+    │   ├── User.js               # Roles: Student, Tutor, Admin
+    │   ├── Course.js             # Price & Category logic
+    │   ├── Enrollment.js         # Student ledger
+    │   └── Payment.js            # Transaction history [NEW]
+    └── routes/
+        ├── authRoutes.js
+        ├── enrollmentRoutes.js
+        └── paymentRoutes.js      # Checkout endpoints [NEW]
 ```
-
----
-
-## 🤝 Contributing
-
-This project is being developed by the **DarlTech Academy** team. Each team member works on their own branch and submits Pull Requests for review before merging into main.

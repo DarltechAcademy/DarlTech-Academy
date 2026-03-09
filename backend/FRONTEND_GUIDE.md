@@ -44,25 +44,6 @@ This guide outlines exactly which fields the frontend application needs to colle
 - `Backend Development`
 - `Graphic Design`
 
-### 4. Module Creation (`POST /api/modules`)
-**Purpose:** Adding a new chapter to a course.
-| Dashboard Field | API Key | Type | Requirement | Notes |
-|-----------------|---------|------|-------------|-------|
-| Module Title | `title` | String | **Required** | |
-| Course Reference | `course` | String | **Required** | The database `_id` of the parent course |
-| Display Order | `order` | Number | Optional | Used for sorting modules (1, 2, 3...) |
-
-### 5. Lesson Creation (`POST /api/lessons`)
-**Purpose:** Adding an individual lesson to a module.
-| Dashboard Field | API Key | Type | Requirement | Notes |
-|-----------------|---------|------|-------------|-------|
-| Lesson Title | `title` | String | **Required** | |
-| Module Reference | `module` | String | **Required** | The database `_id` of the parent module |
-| Lesson Content | `content` | String | Optional | Markdown or HTML string |
-| Video Link | `videoUrl` | String | Optional | External URL (YouTube, etc.) |
-| Resources | `resources` | Array | Optional | An array of objects: `[ { "name": "...", "url": "..." } ]` |
-| Display Order | `order` | Number | Optional | Used for sorting lessons (1, 2, 3...) |
-
 ---
 
 ## 📂 File Handling
@@ -73,36 +54,43 @@ This guide outlines exactly which fields the frontend application needs to colle
 |---------------|---------|------------------|
 | `type="file"` | `file` | `jpg`, `jpeg`, `png`, `pdf`, `mp4` |
 
-**Recommended Flow:**
-1.  Frontend uploads the file first.
-2.  Backend returns a relative URL (e.g., `/uploads/image-123456.png`).
-3.  Frontend saves that URL into the relevant Course or Lesson field.
-
 ---
 
 ## 🎓 Enrollments & Dashboards
 
-### 7. Join Course (`POST /api/enrollments`)
-**Purpose:** Enrolling a student in a course.
-| Dashboard Field | API Key | Type | Requirement | Notes |
-|-----------------|---------|------|-------------|-------|
-| Course Reference | `course` | String | **Required** | The database `_id` of the course to join |
+### 7. Join Free Course (`POST /api/enrollments`)
+**Purpose:** Enrolling a student in a free course.
+- **Required Key:** `course` (ID of the course)
 
-*Note: The user ID is automatically extracted from the JWT token. Do not send the user ID in the body.*
-
-### 8. Fetch My Dashbord (`GET /api/enrollments/my-enrollments`)
-**Purpose:** Getting the list of active courses for the logged-in student.
-- **Parameters:** None (Uses JWT token)
-- **Returns:** An array of Enrollment objects, populated with Course details (title, category, thumbnail, etc.)
+### 8. Fetch My Dashboard (`GET /api/enrollments/my-enrollments`)
+- **Returns:** An array of active courses for the student.
 
 ---
 
-## 🚦 Error Handling & Interception
+## 💳 Payments (Paystack Integration)
+
+### 9. Initialize Transaction (`POST /api/payments/initialize/:courseId`)
+**Purpose:** Starting a payment for a paid course.
+- **Backend Flow:** Returns a JSON object containing an `authorization_url`.
+- **Frontend Action:** Redirect the user to this `authorization_url` so they can pay on the Paystack page.
+
+### 10. Verify Transaction (`GET /api/payments/verify/:reference`)
+**Purpose:** Confirming the payment was successful.
+- **Implementation:** After the user is redirected back to your `callback_url`, take the `reference` from the URL and call this endpoint to unlock the course content for the student.
+
+---
+
+## 🚦 Error Handling & Security Interception
 
 ### 1. HTTP 401 Unauthorized
-If the API returns a `401` error, the user's session has likely expired.
-- **Action:** Clear the token from local storage and redirect the user back to `/login`.
+The user's session has expired. Redirect to `/login`.
 
-### 2. HTTP 422 Unprocessable Entity
-This occurs when local frontend validation doesn't match backend requirements.
-- **Action:** Read the response body for a detailed array of which fields failed.
+### 2. HTTP 403 Forbidden
+The user is not enrolled in the course or does not have permission for the action.
+
+### 3. HTTP 429 Too Many Requests
+**New Security Guard:** If a user (or bot) makes more than 100 requests in 15 minutes, they will be blocked.
+- **Action:** Show a "Slow down, please wait a few minutes" message.
+
+### 4. HTTP 422 Unprocessable Entity
+Validation failed. Check the response body for field-specific errors.

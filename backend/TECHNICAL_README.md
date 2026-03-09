@@ -1,128 +1,51 @@
 # DarlTech Academy LMS - Technical Architecture & Developer Guide
 
-This document is intended for backend developers, DevOps engineers, and technical stakeholders contributing to the DarlTech Academy backend.
-
 ## 1. System Overview
+DarlTech Academy is a monolithic, RESTful backend Node.js application built using the Express web framework.
 
-DarlTech Academy is a monolithic, RESTful backend Node.js application built using the Express web framework. It serves as the core data layer and business logic engine for the Learning Management System (LMS), handling user authentication, course content delivery, and RBAC (Role-Based Access Control).
-
-## 2. Technology Stack
-
+## 2. Technology Stack (Updated)
 - **Runtime:** Node.js
 - **Framework:** Express.js
-- **Database:** MongoDB (NoSQL)
-- **ODM:** Mongoose
-- **Authentication:** JSON Web Tokens (JWT) & bcryptjs
-- **Validation:** express-validator
-- **File Uploads:** Multer (Local disk storage)
-- **API Documentation:** Swagger UI (`swagger-jsdoc`, `swagger-ui-express`)
+- **Database:** MongoDB (Managed via Mongoose)
+- **Security:** Helmet, express-rate-limit, express-mongo-sanitize, xss-clean, hpp
+- **Authentication:** JWT (7-day lifespan)
+- **Payment:** Paystack (axios for server-side verification)
+- **API Docs:** Swagger UI
 
-## 3. Architectural Pattern
+## 3. Security Architecture (Sprint 6 Audit)
+The following middleware layers have been implemented for production-grade security:
+- **Helmet:** Headers for CSP, XSS protection, and frameguard.
+- **Rate Limiting:** Global limiter set to 100 requests per 15 minutes per IP.
+- **Sanitization:** Strict prevention of NoSQL Injection using `mongo-sanitize` and XSS attacks using `xss-clean`.
+- **Parameter Pollution:** `hpp` protects against multiple parameters of the same name.
+- **Data Size Limit:** Body parser restricted to 10KB to prevent payload-based DDoS.
 
-The application follows a **Layered MVC (Model-View-Controller)** pattern combined with an interceptor pattern for middleware routing.
+## 4. Payment Architecture (Paystack)
+The payment flow relies on server-side initialization and verification:
+- `POST /api/payments/initialize/:courseId`: 
+  - Validates user and course existence.
+  - Generates a unique 12-byte hex reference.
+  - Requests an `authorization_url` from Paystack.
+- `GET /api/payments/verify/:reference`:
+  - Verifies the transaction reference directly with Paystack’s API.
+  - On success, atomically updates the `Payment` ledger and creates an `Enrollment` record.
 
-```text
-HTTP Request 
-    │
-    ▼
-[ Express Router ] ──► (Validation & Auth Middleware)
-    │
-    ▼
-[ Controllers ] ──► (Business Logic, Request Parsing)
-    │
-    ▼
-[ Mongoose Models ] ──► (Data Schema, Virtuals, Pre-Save Hooks)
-    │
-    ▼
-[ MongoDB Database ]
-```
+## 5. Database Schema
+### 5.1 Enrollment (Sprint 3)
+Tracks student-course relationships with a compound unique index on `{ user, course }`.
 
-### Directory Segregation
-- **`config/`**: Environment initialization, database connection logic, and Swagger definitions.
-- **`controllers/`**: Request handlers mapping HTTP input to standard responses. Contains zero database definition logic.
-- **`middleware/`**: Cross-cutting concerns such as JWT validation (`authMiddleware`), role verification (`roleMiddleware`), payload validation, and global error handling.
-- **`models/`**: Mongoose schemas enforcing strict physical data structures. Utilizes virtuals to establish pseudo-relational mappings between NoSQL documents without duplicating data.
-- **`routes/`**: Express Router definitions mapping endpoints (`/api/...`) to their respective controller functions.
+### 5.2 Payment (Sprint 6)
+Stores transaction references, status, and audit timestamps.
 
-## 4. Entity-Relationship & Database Schema
+## 6. Development Status
+- ✅ **Sprint 1:** Auth & Foundation
+- ✅ **Sprint 2:** Course Infrastructure
+- ✅ **Sprint 3:** Enrollment Logic
+- ⏸️ **Sprint 4 & 5:** (Paused)
+- ✅ **Sprint 6:** Payments & Security [STABLE]
 
-The database relies heavily on document references (`ObjectId`) and Mongoose **Virtuals** to maintain relational integrity in a NoSQL environment.
-
-### Core Entities (Sprint 1 & 2):
-
-1. **User**
-   - Fields: `name`, `email`, password (hashed), `role`, `status`
-   - Pre-save hooks handle automatic password hashing using `bcryptjs` with a salt round of 10.
-
-2. **Course**
-   - Fields: `title`, `description`, `category` (strict Enum), `price`, `level`, `status`
-   - Relations: 
-     - `tutor` (Reference to `User` model)
-     - `modules` (Virtual field, dynamically querying the `Module` collection)
-
-3. **Module**
-   - Fields: `title`, `order`
-   - Relations:
-     - `course` (Reference to `Course` model)
-     - `lessons` (Virtual field, querying the `Lesson` collection)
-
-4. **Lesson**
-   - Fields: `title`, `content` (Markdown/HTML), `videoUrl`, `resources` (Array of objects), `order`
-   - Relations:
-     - `module` (Reference to `Module` model)
-
-5. **Enrollment (Sprint 3)**
-   - Fields: `status` ('Active', 'Completed', 'Cancelled'), `progress`
-   - Relations: `user` (Ref to User), `course` (Ref to Course)
-   - Indexes: Compound Unique Index on `{ user: 1, course: 1 }` to prevent double-enrollment.
-
-## 5. Security Architecture
-
-### Authentication Flow
-- **State:** Stateless APIs. No session objects are stored on the server.
-- **Token:** JWTs govern access. Issued upon successful login (`/api/auth/login`) or registration.
-- **Lifespan:** Configured via `generateToken` utility (standard 30d).
-
-### Role-Based Access Control (RBAC) Matrices
-Strict endpoint-level authorization enforced by the `authorize()` middleware in `/src/middleware/roleMiddleware.js`.
-
-| Role | Permissions | Note |
-|------|-------------|------|
-| **Student** | Access to published courses **IF ENROLLED**. | Cannot view lesson content without an active `Enrollment` document. |
-| **Tutor** | Read, Create, Update, Delete within their domain. | Tutors are restricted to modifying **only** the courses they created. |
-| **Admin** | Unrestricted CRUD capabilities. | Full override privileges across the platform. |
-
-## 6. Current State of Development
-
-The project is being developed in Agile Sprints.
-
-### ✅ Completed Configurations
-- **Database Engine:** MongoDB connected with Mongoose driver.
-- **File System:** Local `multer` storage implemented. Stores standard assets to `/uploads` with timestamp suffixes for collision avoidance.
-- **Error Handling:** Centralized Express error interceptor (`errorHandler`) catching raw exceptions and Mongoose `CastError`s, formatting them into standard JSON responses.
-
-### ✅ Sprint 1: Auth & Foundation
-- `User` Schema with password encryption hooks.
-- JWT Generation and Validation middleware.
-- RBAC interceptors.
-- Centralized Validation pipelines via `express-validator`.
-
-### ✅ Sprint 2: Core LMS Infrastructure
-- Implementation of the `Course` -> `Module` -> `Lesson` architecture.
-- Full CRUD API mapping.
-- Parent-Child ownership verification layers (e.g., verifying a Tutor owns the parent Course before allowing Lesson modifications).
-- Multipart/form-data upload pipeline for course assets.
-
-### ✅ Sprint 3: Enrollment & Access Models
-- **Enrollment Schema:** Created strict ledger coupling Students to Courses.
-- **`checkEnrollment` Middleware:** An interceptor that intercepts requests to `/api/modules/:id` and `/api/lessons/:id`. It traces the document back to its parent course and verifies the requestor is either:
-  1. An Admin (Universal bypass)
-  2. The Tutor who created the content
-  3. A Student with an `Active` enrollment record.
-- **Dashboard APIs:** Implemented `/my-enrollments` to feed the Student UI.
-
-### 🚧 Pending (Sprints 4-6)
-Future technical implementations:
-- Complex aggregation pipelines for Student progress tracking.
-- Database transactions (ACID) for Enrollment and Payment gateways.
-- Advanced API Optimization: Rate-limiting, caching (Redis), and pagination matrices.
+## 7. Configuration
+Requires the following environment variables:
+- `PAYSTACK_SECRET_KEY`: Private key from Paystack dashboard.
+- `FRONTEND_URL`: For CORS restriction.
+- `MONGO_URI`: Atlas or local MongoDB connection string.
