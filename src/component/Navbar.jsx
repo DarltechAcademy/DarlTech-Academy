@@ -52,8 +52,8 @@ export default function Navbar() {
           }`}
         >
           <NavLink to="/bootcamp" className={linkClass}>Bootcamp</NavLink>
-          <NavLink to="/regular" className={linkClass}>Regular</NavLink>
-          <NavLink to="/program" className={linkClass}>Program</NavLink>
+          <NavLink to="/regular" className={linkClass}>Regular Program</NavLink>
+          {/* <NavLink to="/program" className={linkClass}>Program</NavLink> */}
           <NavLink to="/testimonials" className={linkClass}>Testimonials</NavLink>
           <NavLink to="/faq" className={linkClass}>FAQ</NavLink>
 
