@@ -9,105 +9,112 @@ import {
   Bug,
   Palette,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 export default function Program() {
-  const navigate = useNavigate();
-
   const programs = [
-    { title: "UI/UX Design", duration: "3 Months", price: 300000, icon: Palette },
-    { title: "Frontend Development", duration: "3 Months", price: 350000, icon: Globe },
-    { title: "Backend Development", duration: "3 Months", price: 350000, icon: Database },
-    { title: "Fullstack Development", duration: "6 Months", price: 550000, icon: Code },
-    { title: "Mobile App Development", duration: "4 Months", price: 500000, icon: Smartphone },
-    { title: "Cybersecurity", duration: "4 Months", price: 600000, icon: Shield },
-    { title: "Data Analysis", duration: "3 Months", price: 350000, icon: BarChart3 },
-    { title: "Software Testing", duration: "3 Months", price: 350000, icon: Bug },
-    { title: "Product Management", duration: "3 Months", price: 350000, icon: ClipboardList },
+    {
+      title: "UI/UX Design",
+      duration: "3 Months Intensive",
+      price: "₦300,000",
+      icon: Palette,
+      desc: "Learn user research, wireframing, prototyping and design systems.",
+    },
+    {
+      title: "Frontend Development",
+      duration: "3 Months Intensive",
+      price: "₦350,000",
+      icon: Globe,
+      desc: "Master HTML, CSS, JavaScript and modern frontend tools.",
+    },
+    {
+      title: "Backend Development",
+      duration: "3 Months Intensive",
+      price: "₦350,000",
+      icon: Database,
+      desc: "Build powerful APIs using Node.js and Express.",
+    },
+    {
+      title: "Fullstack Development",
+      duration: "6 Months Intensive",
+      price: "₦550,000",
+      icon: Code,
+      desc: "Become a complete engineer with frontend + backend mastery.",
+    },
+    {
+      title: "Mobile App Development",
+      duration: "4 Months Intensive",
+      price: "₦500,000",
+      icon: Smartphone,
+      desc: "Build cross-platform apps using Flutter framework.",
+    },
+    {
+      title: "Cyber Security",
+      duration: "4 Months Intensive",
+      price: "₦600,000",
+      icon: Shield,
+      desc: "Learn ethical hacking, security testing and risk management.",
+    },
+    {
+      title: "Data Analysis",
+      duration: "3 Months Intensive",
+      price: "₦350,000",
+      icon: BarChart3,
+      desc: "Analyze data using modern tools and visualization techniques.",
+    },
+    {
+      title: "Software Testing",
+      duration: "3 Months Intensive",
+      price: "₦350,000",
+      icon: Bug,
+      desc: "Master manual & automated testing techniques.",
+    },
+    {
+      title: "Product Management",
+      duration: "3 Months Intensive",
+      price: "₦350,000",
+      icon: ClipboardList,
+      desc: "Learn product lifecycle, strategy and agile methodologies.",
+    },
   ];
-
-  const handleEnroll = async (program) => {
-    try {
-      console.log("Clicked:", program.title);
-
-      const res = await axios.get("http://localhost:5000/api/courses");
-
-      console.log("API Response:", res.data);
-
-      const selectedCourse = res.data.find(
-        (c) => c.title === program.title
-      );
-
-      if (!selectedCourse) {
-        alert("Course not found in backend");
-        return;
-      }
-
-      navigate("/auth", {
-        state: {
-          course: selectedCourse,
-        },
-      });
-    } catch (error) {
-      console.error("ERROR:", error);
-      alert("Backend not reachable");
-    }
-  };
 
   return (
     <div className="pt-28 bg-[var(--bg-section)] min-h-screen">
-      {/* HERO */}
+      {/* Hero Section */}
       <section className="text-center py-16 px-6">
-        <Code size={50} className="mx-auto text-[var(--accent)] float" />
-
+        <Code size={50} className="mx-auto text-[var(--accent)]" />
         <h1 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] mt-6">
           Our Programs
         </h1>
-
         <p className="mt-4 text-[var(--text-secondary)] max-w-2xl mx-auto">
           Practical tech training programs designed to equip you with
-          in-demand skills.
+          in-demand skills, real-world experience and certification.
         </p>
       </section>
 
-      {/* GRID */}
+      {/* Programs Grid */}
       <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-20">
         {programs.map((item, index) => {
           const Icon = item.icon;
-
           return (
             <div
               key={index}
-              className="bg-[var(--bg-card)] p-8 rounded-2xl shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-medium)] transition"
+              className="bg-white p-8 rounded-2xl shadow-[var(--shadow-soft)] hover:shadow-xl transition duration-300"
             >
               <Icon size={40} className="text-[var(--accent)]" />
-
               <h3 className="mt-5 text-xl font-semibold text-[var(--text-primary)]">
                 {item.title}
               </h3>
 
               <p className="text-sm text-[var(--text-secondary)] mt-2">
-                Duration: {item.duration}
+                {item.desc}
               </p>
 
-              <p className="text-sm text-[var(--text-secondary)]">
-                Fee: ₦{item.price.toLocaleString()}
-              </p>
+              <div className="mt-4 text-sm text-[var(--text-secondary)]">
+                <p><span className="font-semibold">Duration:</span> {item.duration}</p>
+                <p><span className="font-semibold">Fee:</span> {item.price}</p>
+              </div>
 
-              <button
-                onClick={() => handleEnroll(item)}
-                className="mt-6 w-full py-2 rounded-lg text-white transition"
-                style={{
-                  background: "var(--btn-primary-bg)",
-                }}
-                onMouseOver={(e) =>
-                  (e.target.style.background = "var(--btn-primary-hover)")
-                }
-                onMouseOut={(e) =>
-                  (e.target.style.background = "var(--btn-primary-bg)")
-                }
-              >
+              <button className="mt-6 w-full bg-[var(--accent)] text-white py-2 rounded-lg hover:opacity-90 transition">
                 Enroll Now
               </button>
             </div>

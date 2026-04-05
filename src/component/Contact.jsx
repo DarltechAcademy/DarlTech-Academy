@@ -67,7 +67,7 @@
 
 import React from "react";
 import ConImg from "../assets/image/con2.png";
-import ConBg from "../assets/image/conbg.png";
+import ConBg from "../assets/image/con.png";
 
 export default function Contact() {
   return (

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import img from "../assets/image/img3.png"
-
+import Footer from "../component/Footer"
 
 export default function Bootcamp() {
   const [active, setActive] = useState(null);
@@ -299,7 +299,7 @@ Each student builds a portfolio of full-stack projects in languages and technolo
           </button>
         </Link>
       </section>
-
+  <Footer/>
     </div>
     
   );
