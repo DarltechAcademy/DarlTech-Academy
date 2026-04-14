@@ -19,9 +19,9 @@ export default function Bootcamp() {
 
 • You have exceptional personal, academic or professional performance. You have to show you have excelled at something.
 • You learn fast and can handle pressure
-• You are disciplined and determined to work hard and succeed as a software engineer.
+• You are disciplined and determined to work hard and succeed as a skilled Tech Personnel.
 • You are above 18 years of age.
-• You are ready to work full-time and not distracted by school, work or any other engagement for the next 6 months.
+• You are ready to 25-40hours per week to study.
 • You want to be financially free and earn above 300k as a Software Engineer.
 
 If you meet all the requirements listed above and ready to Future-Proof your Career, complete the application form and we will call you regarding the next steps`
@@ -30,19 +30,17 @@ If you meet all the requirements listed above and ready to Future-Proof your Car
       title: "Training Bootcamp",
       content: `We don't just teach people how to code — we teach how to think like an engineer. 
 
-We teach the fundamental skills and knowledge required to become an autonomous software engineer competitive in today's ever evolving tech world.
+We teach the fundamental skills and knowledge required to become an autonomous Tech pro, competitive in today's ever evolving tech world.
 
-Within a period of 6-months, we train you to become a full-stack software engineer. We provide accommodation and training to ensure you stay focused during this period.`
+Within a period of 4-8 months, we train you to become a Tech ethusiast  on the tech skill you choose to learn.`
     },
     {
       title: "Real-Life Projects",
       content: `During the program, students are exposed to real-life applications and projects.
-
-Each student builds a portfolio of full-stack projects in languages and technologies common in today's job market.`
     },
     {
       title: "Internships",
-      content: `After the program, you will work as an intern with ITSkillsCenter, building and interacting with clients, learning the required skills to work in a professional environment.`
+      content: `There will be an internship for the best students After the program, building and interacting with clients, learning the required skills to work in a professional environment.`
     }
   ];
 
@@ -70,7 +68,7 @@ Each student builds a portfolio of full-stack projects in languages and technolo
     {
       question: "Can I pay in installments?",
       answer:
-        "Yes. Flexible installment payment options are available depending on the selected program."
+        "No. its a one-time payment."
     }
   ];
 
@@ -79,7 +77,7 @@ Each student builds a portfolio of full-stack projects in languages and technolo
 
       {/* HERO */}
       <section className="bg-[var(--primary)] text-white py-24 text-center px-6">
-        <h1 className="text-5xl font-bold">Immersive Coding Bootcamp</h1>
+        <h1 className="text-5xl font-bold">Full-Immersion Tech sprint</h1>
 
         <p className="mt-6 max-w-2xl mx-auto text-lg">
           Career-focused intensive training designed to transform beginners
@@ -115,7 +113,19 @@ Each student builds a portfolio of full-stack projects in languages and technolo
             "Frontend Development",
             "Backend Development",
             "Cyber Security",
-            "Data Analytics"
+            "Data Analytics",
+            "Data Science",
+            "Graphics Design",
+            "UI/UX Design",
+            "Project Management",
+            "Ai Automation",
+            "Web Development",
+            "Mobile App Development",
+            "Robotics Engineering",
+            "Software Engineering",
+            "Cloud Computing",
+            "Python Development",
+      
           ].map((program, index) => (
             <div
               key={index}
@@ -124,7 +134,7 @@ Each student builds a portfolio of full-stack projects in languages and technolo
               <h3 className="text-xl font-bold">{program}</h3>
 
               <p className="mt-2 text-[var(--text-muted)]">
-                Duration: 4–7 Months
+                Duration: 4–8 Months
               </p>
 
               <p className="text-2xl font-bold mt-4">₦150,000</p>
