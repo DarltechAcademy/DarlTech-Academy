@@ -25,7 +25,7 @@ const faqs = [
   {
     question: "How do I apply?",
     answer:
-      "Fill out the application form on our website → Complete screening → Attend a short interview.",
+      "Fill out the application form on our website → Complete payment.",
   },
   {
     question: "Do I need coding experience?",
@@ -44,12 +44,12 @@ const faqs = [
   },
   {
     question: "How long is the course?",
-    answer: "The program runs for 3 months (intensive training).",
+    answer: "The program runs for 4-8 months (intensive training).",
   },
   {
     question: "What’s the time commitment?",
     answer:
-      "Approximately 20 hours per week including lectures, projects, and assignments.",
+      "Approximately 30 hours per week including lectures, projects, and assignments.",
   },
   {
     question: "How do I contact support?",
@@ -59,11 +59,11 @@ const faqs = [
   {
     question: "Do you guarantee jobs?",
     answer:
-      "While we do not guarantee jobs, we provide strong job placement support. Over 80% of our graduates secure roles or start successful projects.",
+      "While we do not guarantee jobs, we provide strong job placement support.",
   },
   {
     question: "Can I get a mentor?",
-    answer: "Yes. Graduates receive 3 months of post-graduation mentorship.",
+    answer: "Yes. Graduates receive 1 months of post-graduation mentorship.",
   },
   {
     question: "Is there certification?",
