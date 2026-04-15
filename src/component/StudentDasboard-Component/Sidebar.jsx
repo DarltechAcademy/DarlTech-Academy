@@ -126,13 +126,13 @@ const menu = [
       { name: "Quizzes", path: "/dashboard/quizzes", icon: HelpCircle },
     ],
   },
-  {
-    section: "Communication",
-    items: [
-      { name: "Messages", path: "/dashboard/messages", icon: MessageSquare, badge: 3 },
-      { name: "Community", path: "/dashboard/community", icon: Users },
-    ],
-  },
+  // {
+  //   section: "Communication",
+  //   items: [
+  //     { name: "Messages", path: "/dashboard/messages", icon: MessageSquare, badge: 3 },
+  //     { name: "Community", path: "/dashboard/community", icon: Users },
+  //   ],
+  // },
   {
     section: "System",
     items: [

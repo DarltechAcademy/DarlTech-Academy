@@ -135,6 +135,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import auth from "../assets/image/auth.jpg";
 
 export default function AuthPage() {
   const location = useLocation();
@@ -247,7 +248,9 @@ const handleSubmit = async (e) => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative px-6 overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative px-6 overflow-hidden"
+    style={{backgroundImage: `url(${auth})`}}
+    >
 
       {/* 🌟 FLOATING BACKGROUND OBJECTS */}
       <div className="absolute w-72 h-72 bg-[var(--accent)] opacity-20 rounded-full top-10 right-10 float"></div>
@@ -258,7 +261,9 @@ const handleSubmit = async (e) => {
       <div className="w-full max-w-5xl grid md:grid-cols-2 backdrop-blur-xl bg-white/20 border border-white/30 rounded-3xl shadow-2xl overflow-hidden">
 
         {/* LEFT SIDE */}
-        <div className="bg-[var(--primary)]/90 text-white p-12 flex flex-col justify-center">
+        <div className=" text-white p-12 flex flex-col justify-center"
+        style={{backgroundImage: `url(${auth})`}}
+        >
           <h2 className="text-4xl font-bold mb-4">
             {isLogin ? "Welcome Back 👋" : "Join DarlTech 🚀"}
           </h2>

@@ -34,6 +34,9 @@ import AdminCourses from './AdminDashboard/Course';
 /* Payment */
 import PaymentPage from './component/Payment';
 import VerifyPayment from './component/PaymentConfrim';
+import Users from './AdminDashboard/User';
+import AdminAnalytics from './AdminDashboard/Analytics';
+import AdminAssignments from './AdminDashboard/Assignment';
 
 export default function App() {
   return (
@@ -61,8 +64,8 @@ export default function App() {
           <Route path="assignments" element={<Assignments />} />
           <Route path="quizzes" element={<Quizzes />} />
           <Route path="learning" element={<LearningTab />} />
-          <Route path="messages" element={<Messages />} />
-          <Route path="community" element={<Community />} />
+          {/* <Route path="messages" element={<Messages />} />
+          <Route path="community" element={<Community />} /> */}
           <Route path="analytics" element={<Analytics />} />
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="settings" element={<Settings />} />
@@ -72,14 +75,14 @@ export default function App() {
         <Route path="/Admindashboard" element={<AdminDashboardlayout />}>
           <Route index element={<AdminHome />} />
           <Route path="courses" element={<AdminCourses />} />
-          <Route path="assignments" element={<Assignments />} />
+          <Route path="assignments" element={<AdminAssignments />} />
           <Route path="quizzes" element={<Quizzes />} />
-          <Route path="learning" element={<LearningTab />} />
-          <Route path="messages" element={<Messages />} />
-          <Route path="community" element={<Community />} />
-          <Route path="analytics" element={<Analytics />} />
+          {/* <Route path="messages" element={<Messages />} />
+          <Route path="community" element={<Community />} /> */}
+          <Route path="analytics" element={<AdminAnalytics />} />
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="users" element={<Users />} />
         </Route>
 
       </Routes>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import Faq from "../assets/image/contact.jpg"
 
 const faqs = [
   {
@@ -83,7 +84,14 @@ export default function FAQ() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-22 bg-[var(--bg-section)]">
+    <>
+     <div  className="bg-center bg-cover h-96"
+            style={{backgroundImage: `url(${Faq})`,}}>
+            
+      </div>
+    <div className=" mx-auto px-4 py-22 bg-[var(--bg-section)]">
+     
+
       <h1 className="text-4xl font-bold text-center mb-12 text-[var(--primary)]">
         Frequently Asked Questions
       </h1>
@@ -117,5 +125,6 @@ export default function FAQ() {
         ))}
       </div>
     </div>
+    </>
   );
 }

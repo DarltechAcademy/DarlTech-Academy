@@ -83,3 +83,45 @@
 }
 
 
+.card {
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+}
+
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.item {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--bg-section);
+  margin-bottom: 8px;
+}
+
+.item:hover {
+  background: #e5e7eb;
+}
+
+.active {
+  background: var(--primary);
+  color: white;
+}
