@@ -1,1 +1,0 @@
-Darltech Academy LMS platform

@@ -2,10 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./src/config/swagger');
+let swaggerUi;
+let swaggerSpec;
 const { notFound, errorHandler } = require('./src/middleware/errorMiddleware');
 const connectDB = require('./src/config/db');
+
+try {
+    swaggerUi = require('swagger-ui-express');
+    swaggerSpec = require('./src/config/swagger');
+} catch (err) {
+    console.warn('Swagger docs disabled:', err.message);
+}
 
 // Connect to Database
 connectDB();
@@ -46,7 +53,9 @@ app.get('/', (req, res) => {
 });
 
 // Swagger Documentation Route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+if (swaggerUi && swaggerSpec) {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
 
 // Auth Routes
 const authRoutes = require('./src/routes/authRoutes');

@@ -106,7 +106,6 @@ const { checkEnrollment } = require('../middleware/enrollmentMiddleware');
  *         description: Lesson created successfully
  *       401:
  *         description: Not authorized
- *         description: Not authorized
  *       403:
  *         description: Forbidden (Not enrolled)
  *       404:
