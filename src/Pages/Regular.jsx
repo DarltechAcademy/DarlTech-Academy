@@ -79,11 +79,13 @@ export default function Program() {
   ];
 
   return (
-    <div className=" bg-[var(--bg-section)] min-h-screen">
+    <div className=" bg-[var(--bg-section)] min-h-screen ">
       {/* Hero Section */}
-    <section className="bg-center bg-cover h-96"
+    <section className=" relative bg-center bg-cover h-96 flex items-center justify-center"
     style={{backgroundImage: `url(${program})`,}}
     >
+      <div className="absolute inset-0 bg-black/60"></div>
+
 
     </section>
 

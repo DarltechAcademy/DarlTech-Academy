@@ -1,78 +1,82 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import Faq from "../assets/image/contact.jpg"
+import Faq from "../assets/image/contact.jpg";
 
 const faqs = [
   {
-    question: "What is DarlTech Academy?",
+    question: "Is this scholarship real? What’s the catch?",
     answer:
-      "DarlTech Academy teaches practical tech skills like Web Development, Data Science, and Cybersecurity focused on job readiness within 3 months.",
+      "Yes, it’s 100% real. The “catch” is we only train serious people. The ₦30,000 commitment fee secures your slot and covers LMS access, live classes, mentorship, and capstone supervision. We cover your full tuition. No hidden fees after.",
   },
   {
-    question: "Who is DarlTech for?",
+    question: "Why should I pay ₦30,000 if it’s a scholarship?",
     answer:
-      "Students, career switchers, and professionals who want to upskill and build a strong career in tech.",
+      "Free things are abandoned. The fee ensures commitment. We’re investing instructors, resources, and internship slots in you. We need students who will start and finish. Think of it as “skin in the game,” not tuition.",
   },
   {
-    question: "What courses do you offer?",
+    question: "What courses can I pick?",
     answer:
-      "We offer Web Development, Data Science, Cybersecurity, and other in-demand tech programs. Visit our Courses page for full details.",
+      "Frontend Development (HTML, CSS, JavaScript, React), Backend Development (Node.js, Python, APIs), Data Analysis (Excel, SQL, Power BI, Python), UI/UX Design (Figma, User Research), Cybersecurity Fundamentals, Product Management, Mobile App Development (Flutter/React Native). Full curriculum will be provided.",
   },
   {
-    question: "Are courses online or offline?",
+    question: "Is the ₦30,000 refundable?",
     answer:
-      "We operate a hybrid model: online lectures combined with in-person practical project sessions in Lagos, Nigeria.",
+      "No. It’s a non-refundable commitment fee. Once paid, your slot is reserved and resources are allocated to you. Please be sure before paying.",
   },
   {
-    question: "How do I apply?",
+    question: "How long is the program?",
     answer:
-      "Fill out the application form on our website → Complete screening → Attend a short interview.",
+      "4 months total: 3 months intensive training + 1 month capstone project where you build a real-world solution. No theory without practice.",
   },
   {
-    question: "Do I need coding experience?",
+    question: "What’s this internship for best graduating students?",
     answer:
-      "No prior coding experience is required. Our programs are beginner-friendly, but applicants may take an aptitude test.",
+      "Top performers based on attendance, assignments, and capstone quality will be recommended for internship placements with partner companies. It’s merit-based — show up, do the work, get rewarded.",
   },
   {
-    question: "How much does it cost?",
+    question: "Is it online or physical?",
     answer:
-      "Tuition fees vary by program. Contact us directly for current pricing and flexible payment plans.",
+      "Cohort 1 is 100% online with live classes via Zoom/Google Meet, recorded replays, and virtual capstone supervision. All you need is a laptop and internet.",
   },
   {
-    question: "Do you offer scholarships?",
+    question: "When are classes? I work/school.",
     answer:
-      "Yes. Scholarships are available for top-performing applicants and underrepresented groups.",
+      "Classes run evenings 7PM–9PM WAT and weekends. Designed for 9–5 workers and students. Timetable will be shared before resumption.",
   },
   {
-    question: "How long is the course?",
-    answer: "The program runs for 3 months (intensive training).",
-  },
-  {
-    question: "What’s the time commitment?",
+    question: "When does Cohort 1 start?",
     answer:
-      "Approximately 20 hours per week including lectures, projects, and assignments.",
+      "Target start date: May 5, 2026. Registration closes once slots are filled.",
   },
   {
-    question: "How do I contact support?",
+    question: "What are the requirements to join?",
     answer:
-      "You can reach us via email or WhatsApp for assistance and inquiries.",
+      "₦30,000 commitment fee, a laptop (minimum 4GB RAM, Core i3), internet access, and willingness to learn and complete assignments. No prior coding experience required for beginner tracks.",
   },
   {
-    question: "Do you guarantee jobs?",
+    question: "Will I get a certificate?",
     answer:
-      "While we do not guarantee jobs, we provide strong job placement support. Over 80% of our graduates secure roles or start successful projects.",
+      "Yes. You’ll receive a Certificate of Completion after passing your capstone. However, your portfolio project is what employers truly value.",
   },
   {
-    question: "Can I get a mentor?",
-    answer: "Yes. Graduates receive 3 months of post-graduation mentorship.",
+    question: "How many slots are available?",
+    answer:
+      "Only 500 slots total across all tracks. Once filled, registration closes until the next cohort. No waiting list.",
   },
   {
-    question: "Is there certification?",
-    answer: "Yes. Students receive a certificate upon successful completion of the program.",
+    question: "How do I register after paying?",
+    answer:
+      "Step 1: Pay ₦30,000 to the provided account.\nStep 2: Send proof of payment + Full Name + Course Track + Phone + Email to the admin.\nStep 3: Get onboarded within 24 hours.",
   },
   {
-    question: "Is mentorship included?",
-    answer: "Yes. Live mentorship is included during the program.",
+    question: "What if I miss a class?",
+    answer:
+      "All classes are recorded and available for replay. However, 80% attendance is required to qualify for internship consideration.",
+  },
+  {
+    question: "Is DARLTECH ACADEMY registered?",
+    answer:
+      "Yes. We are a registered tech education outfit. CAC details and office address are available upon request for serious applicants.",
   },
 ];
 
@@ -85,46 +89,54 @@ export default function FAQ() {
 
   return (
     <>
-     <div  className="bg-center bg-cover h-96"
-            style={{backgroundImage: `url(${Faq})`,}}>
-            
+      {/* HERO */}
+      <div
+        className="relative bg-center bg-cover h-96 flex items-center justify-center"
+        style={{ backgroundImage: `url(${Faq})` }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        <h1 className="relative text-4xl md:text-5xl font-bold text-white text-center">
+          DarlTech Academy Cohort 1 FAQ
+        </h1>
       </div>
-    <div className=" mx-auto px-4 py-22 bg-[var(--bg-section)]">
-     
 
-      <h1 className="text-4xl font-bold text-center mb-12 text-[var(--primary)]">
-        Frequently Asked Questions
-      </h1>
-
-      {/* Two-column grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {faqs.map((faq, index) => (
-          <div
-            key={index}
-            className="border rounded-lg overflow-hidden border-[var(--border-light)] shadow-soft"
-          >
-            <button
-              onClick={() => toggle(index)}
-              className="w-full flex justify-between items-center p-4 bg-[var(--bg-main)] hover:bg-[var(--bg-section)] transition-colors duration-300"
+      {/* FAQ */}
+      <div className="max-w-6xl mx-auto px-4 py-20 bg-[var(--bg-section)]">
+        <div className="grid md:grid-cols-2 gap-6">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="border rounded-xl overflow-hidden border-[var(--border-light)] shadow-soft transition-all duration-300 hover:shadow-lg"
             >
-              <span className="text-lg font-medium text-[var(--text-primary)]">
-                {faq.question}
-              </span>
-              <ChevronDown
-                className={`w-5 h-5 text-[var(--accent)] transform transition-transform duration-300 ${
-                  openIndex === index ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openIndex === index && (
-              <div className="p-4 bg-[var(--bg-main)] border-t border-[var(--border-light)] text-[var(--text-secondary)]">
+              <button
+                onClick={() => toggle(index)}
+                className="w-full flex justify-between items-center p-4 bg-[var(--bg-main)] hover:bg-[var(--bg-section)] transition-colors duration-300"
+              >
+                <span className="text-lg font-medium text-[var(--text-primary)] text-left">
+                  {faq.question}
+                </span>
+
+                <ChevronDown
+                  className={`w-5 h-5 transition-all duration-300 ${
+                    openIndex === index
+                      ? "rotate-180 text-[var(--primary)]"
+                      : "text-[var(--accent)]"
+                  }`}
+                />
+              </button>
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  openIndex === index ? "max-h-60 p-4" : "max-h-0 px-4"
+                } bg-[var(--bg-main)] border-t border-[var(--border-light)] text-[var(--text-secondary)] whitespace-pre-line`}
+              >
                 {faq.answer}
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 }

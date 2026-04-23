@@ -63,22 +63,26 @@ export default function Bootcamp() {
   ];
 
   const faqs = [
-    {
-      question: "Do I need prior coding experience?",
-      answer: "No. Beginners are welcome."
-    },
-    {
-      question: "Is the bootcamp full-time?",
-      answer: "Yes, it requires full dedication."
-    },
-    {
-      question: "Do you offer internship?",
-      answer: "Yes, after training."
-    },
-    {
-      question: "Is there certification?",
-      answer: "Yes, after completion."
-    }
+     {
+    question: "Is this scholarship real? What’s the catch?",
+    answer:
+      "Yes, it’s 100% real. The “catch” is we only train serious people. The ₦30,000 commitment fee secures your slot and covers LMS access, live classes, mentorship, and capstone supervision. We cover your full tuition. No hidden fees after.",
+  },
+  {
+    question: "Why should I pay ₦30,000 if it’s a scholarship?",
+    answer:
+      "Free things are abandoned. The fee ensures commitment. We’re investing instructors, resources, and internship slots in you. We need students who will start and finish. Think of it as “skin in the game,” not tuition.",
+  },
+  {
+    question: "What courses can I pick?",
+    answer:
+      "Frontend Development (HTML, CSS, JavaScript, React), Backend Development (Node.js, Python, APIs), Data Analysis (Excel, SQL, Power BI, Python), UI/UX Design (Figma, User Research), Cybersecurity Fundamentals, Product Management, Mobile App Development (Flutter/React Native). Full curriculum will be provided.",
+  },
+  {
+    question: "Is the ₦30,000 refundable?",
+    answer:
+      "No. It’s a non-refundable commitment fee. Once paid, your slot is reserved and resources are allocated to you. Please be sure before paying.",
+  },
   ];
 
   return (
@@ -87,11 +91,11 @@ export default function Bootcamp() {
     >
 
       {/* HERO */}
-      <section className=" text-white py-24 text-center px-6 bg-cover bg-center "
+      <section className=" text-white py-24 text-center px-6  relative bg-center bg-cover h-96  items-center justify-center" 
         style={{backgroundImage: `url(${Boot})`,}}
       >
         {/* Overlay */}
-  <div className="absolute inset-0 bg-[var( --shadow-medium)] h-9/12 "></div>
+ <div className="absolute inset-0 bg-black/60"></div>
 
         <h1 className="text-5xl font-bold">Immersive Coding Bootcamp</h1>
 
