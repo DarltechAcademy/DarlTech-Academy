@@ -26,7 +26,10 @@ const faqs = [
   {
     question: "How long is the program?",
     answer:
+
       "4 months total: 3 months intensive training + 1 month capstone project where you build a real-world solution. No theory without practice.",
+
+
   },
   {
     question: "What’s this internship for best graduating students?",
@@ -44,9 +47,19 @@ const faqs = [
       "Classes run evenings 7PM–9PM WAT and weekends. Designed for 9–5 workers and students. Timetable will be shared before resumption.",
   },
   {
+
     question: "When does Cohort 1 start?",
     answer:
       "Target start date: May 5, 2026. Registration closes once slots are filled.",
+
+    question: "How long is the course?",
+    answer: "The program runs for 4-8 months (intensive training).",
+  },
+  {
+    question: "What’s the time commitment?",
+    answer:
+      "Approximately 30 hours per week including lectures, projects, and assignments.",
+
   },
   {
     question: "What are the requirements to join?",
@@ -56,12 +69,19 @@ const faqs = [
   {
     question: "Will I get a certificate?",
     answer:
+
       "Yes. You’ll receive a Certificate of Completion after passing your capstone. However, your portfolio project is what employers truly value.",
   },
   {
     question: "How many slots are available?",
     answer:
       "Only 500 slots total across all tracks. Once filled, registration closes until the next cohort. No waiting list.",
+
+  },
+  {
+    question: "Can I get a mentor?",
+    answer: "Yes. Graduates receive 1 months of post-graduation mentorship.",
+
   },
   {
     question: "How do I register after paying?",

@@ -3,7 +3,6 @@ import { ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import img from "../assets/image/img3.png";
-import Boot from "../assets/image/boot.jpg"
 
 export default function Bootcamp() {
   const [active, setActive] = useState(null);
@@ -18,15 +17,15 @@ export default function Bootcamp() {
       try {
         const res = await axios.get(`${API}/courses`);
 
-        // Only show published courses
+        // Only published courses
         const published = res.data.filter(
           (c) => c.status === "Published"
         );
 
         setCourses(published);
-        setLoading(false);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching courses:", err);
+      } finally {
         setLoading(false);
       }
     };
@@ -42,62 +41,69 @@ export default function Bootcamp() {
     },
     {
       title: "Requirements",
-      content:
-        "You must be disciplined, ready to learn fast, and committed to a full-time 6-month program."
+      content: `Ensure you meet the following:
+
+• You have strong personal, academic, or professional performance
+• You learn fast and can handle pressure
+• You are disciplined and determined
+• You are above 18 years of age
+• You are ready for full-time commitment
+• You want to become financially independent as a Software Engineer`
     },
     {
       title: "Training Bootcamp",
-      content:
-        "We train you to become a full-stack engineer with real-world experience."
+      content: `We teach you how to think like an engineer and build real-world solutions.
+
+Within 6 months, you’ll become a full-stack developer with strong fundamentals.`
     },
     {
       title: "Real-Life Projects",
       content:
-        "You will build real projects and develop a strong portfolio."
+        "You will build real-world applications and a strong portfolio."
     },
     {
       title: "Internships",
       content:
-        "After training, you will gain real-world internship experience."
+        "Top students get internship opportunities to gain real experience."
     }
   ];
 
   const faqs = [
-     {
-    question: "Is this scholarship real? What’s the catch?",
-    answer:
-      "Yes, it’s 100% real. The “catch” is we only train serious people. The ₦30,000 commitment fee secures your slot and covers LMS access, live classes, mentorship, and capstone supervision. We cover your full tuition. No hidden fees after.",
-  },
-  {
-    question: "Why should I pay ₦30,000 if it’s a scholarship?",
-    answer:
-      "Free things are abandoned. The fee ensures commitment. We’re investing instructors, resources, and internship slots in you. We need students who will start and finish. Think of it as “skin in the game,” not tuition.",
-  },
-  {
-    question: "What courses can I pick?",
-    answer:
-      "Frontend Development (HTML, CSS, JavaScript, React), Backend Development (Node.js, Python, APIs), Data Analysis (Excel, SQL, Power BI, Python), UI/UX Design (Figma, User Research), Cybersecurity Fundamentals, Product Management, Mobile App Development (Flutter/React Native). Full curriculum will be provided.",
-  },
-  {
-    question: "Is the ₦30,000 refundable?",
-    answer:
-      "No. It’s a non-refundable commitment fee. Once paid, your slot is reserved and resources are allocated to you. Please be sure before paying.",
-  },
+    {
+      question: "Do I need prior coding experience?",
+      answer:
+        "No. Beginners are welcome. Your commitment matters most."
+    },
+    {
+      question: "Is the bootcamp full-time?",
+      answer:
+        "Yes. It requires full focus during the training period."
+    },
+    {
+      question: "Do you offer internships?",
+      answer:
+        "Yes. Students get real-world experience after training."
+    },
+    {
+      question: "Will I get a certificate?",
+      answer:
+        "Yes. You’ll receive a certificate after completion."
+    },
+    {
+      question: "Can I pay in installments?",
+      answer:
+        "Yes. Flexible payment options are available."
+    }
   ];
 
   return (
-    <div className="pt-20 bg-[var(--bg-main)] text-gray-900"
-  
-    >
+    <div className="pt-20 bg-[var(--bg-main)] text-gray-900">
 
       {/* HERO */}
-      <section className=" text-white py-24 text-center px-6  relative bg-center bg-cover h-96  items-center justify-center" 
-        style={{backgroundImage: `url(${Boot})`,}}
-      >
-        {/* Overlay */}
- <div className="absolute inset-0 bg-black/60"></div>
-
-        <h1 className="text-5xl font-bold">Immersive Coding Bootcamp</h1>
+      <section className="bg-[var(--primary)] text-white py-24 text-center px-6">
+        <h1 className="text-5xl font-bold">
+          Immersive Coding Bootcamp
+        </h1>
 
         <p className="mt-6 max-w-2xl mx-auto text-lg">
           Career-focused intensive training to become job-ready.
@@ -117,11 +123,12 @@ export default function Bootcamp() {
         </h2>
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
-          
           {loading ? (
-            <p className="text-center col-span-4">Loading courses...</p>
+            <p className="col-span-full text-center">
+              Loading courses...
+            </p>
           ) : courses.length === 0 ? (
-            <p className="text-center col-span-4">
+            <p className="col-span-full text-center">
               No courses available
             </p>
           ) : (
@@ -134,8 +141,8 @@ export default function Bootcamp() {
                   {course.title}
                 </h3>
 
-                <p className="mt-2 text-gray-500">
-                  {course.level || "Beginner"}
+                <p className="mt-2 text-[var(--text-muted)]">
+                  Duration: {course.duration || "4–7 Months"}
                 </p>
 
                 <p className="text-2xl font-bold mt-4">
@@ -150,7 +157,6 @@ export default function Bootcamp() {
               </div>
             ))
           )}
-
         </div>
       </section>
 
@@ -161,7 +167,6 @@ export default function Bootcamp() {
         </h2>
 
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
-          
           <div className="space-y-4">
             {admissionItems.map((item, index) => (
               <div
@@ -172,7 +177,9 @@ export default function Bootcamp() {
                 }
               >
                 <div className="flex justify-between">
-                  <h3 className="font-semibold">{item.title}</h3>
+                  <h3 className="font-semibold">
+                    {item.title}
+                  </h3>
                   <ChevronDown
                     className={`${
                       active === index ? "rotate-180" : ""
@@ -189,7 +196,11 @@ export default function Bootcamp() {
             ))}
           </div>
 
-          <img src={img} className="rounded-2xl shadow" />
+          <img
+            src={img}
+            alt="Bootcamp"
+            className="rounded-2xl shadow"
+          />
         </div>
       </section>
 
@@ -205,14 +216,18 @@ export default function Bootcamp() {
               key={index}
               className="bg-white p-5 rounded-xl shadow cursor-pointer"
               onClick={() =>
-                setActive(active === index + 10 ? null : index + 10)
+                setActive(
+                  active === index + 10 ? null : index + 10
+                )
               }
             >
               <div className="flex justify-between">
                 <h3>{faq.question}</h3>
                 <ChevronDown
                   className={`${
-                    active === index + 10 ? "rotate-180" : ""
+                    active === index + 10
+                      ? "rotate-180"
+                      : ""
                   }`}
                 />
               </div>
