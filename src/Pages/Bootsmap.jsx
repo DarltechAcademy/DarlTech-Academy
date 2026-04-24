@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import img from "../assets/image/img3.png";
+import Boot from "../assets/image/boot.jpg"
 
 export default function Bootcamp() {
   const [active, setActive] = useState(null);
@@ -97,11 +98,15 @@ Within 6 months, you’ll become a full-stack developer with strong fundamentals
   ];
 
   return (
-    <div className="pt-20 bg-[var(--bg-main)] text-gray-900">
+    <div className="pt-20 bg-[var(--bg-main)] text-gray-900 ">
 
       {/* HERO */}
-      <section className="bg-[var(--primary)] text-white py-24 text-center px-6">
-        <h1 className="text-5xl font-bold">
+      <section className=" relative bg-center bg-cover h-96 text-white py-24  text-center px-6"
+          style={{backgroundImage: `url(${Boot})`,}}
+          >
+            {/* "> */}
+              <div className="absolute inset-0 bg-black/60 ">
+        <div className="pt-20"><h1 className="text-5xl font-bold">
           Immersive Coding Bootcamp
         </h1>
 
@@ -114,6 +119,8 @@ Within 6 months, you’ll become a full-stack developer with strong fundamentals
             Apply Now
           </button>
         </Link>
+        </div>
+        </div>
       </section>
 
       {/* PROGRAMS */}

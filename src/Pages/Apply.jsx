@@ -11,7 +11,7 @@ export default function ApplyPage() {
       {/* Header */}
       <header className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">ITSkillsCentre</h1>
+          <h1 className="text-2xl font-bold text-blue-600">DarlingTech Academy</h1>
           <nav className="flex gap-6">
             <button className="text-gray-700 hover:text-blue-600" onClick={() => navigate("/")}>Home</button>
             <button className="text-gray-700 hover:text-blue-600" onClick={() => navigate("/bootcamp")}>Bootcamp</button>
@@ -24,7 +24,7 @@ export default function ApplyPage() {
       <section className="bg-blue-50 py-16 px-4 text-center">
         <h2 className="text-4xl font-bold mb-4">Launch Your Tech Career Today!</h2>
         <p className="text-gray-700 max-w-2xl mx-auto mb-8">
-          Join ITSkillsCentre's intensive bootcamp programs in Web Development, Mobile Apps, Data Analysis, Cyber Security, and more. Become job-ready in weeks!
+          Join DarlingTech Academy intensive bootcamp programs in Web Development, Mobile Apps, Data Analysis, Cyber Security, and more. Become job-ready in weeks!
         </p>
 
         <div className="flex justify-center gap-4">
@@ -45,7 +45,7 @@ export default function ApplyPage() {
       </section>
 
       {/* Modal Form */}
-      {showForm && (
+      {/* {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-xl shadow-lg max-w-md w-full p-6 relative">
             <button
@@ -114,7 +114,7 @@ export default function ApplyPage() {
             </form>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8 mt-auto">
