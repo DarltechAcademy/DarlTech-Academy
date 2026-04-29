@@ -1,7 +1,7 @@
 // App.jsx
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import { ArrowRight, X, Facebook, Instagram, Linkedin, Tiktok } from "lucide-react";
+import { ArrowRight, X, Facebook, Instagram, Linkedin } from "lucide-react";
 
 export default function ApplyPage() {
   const navigate = useNavigate();

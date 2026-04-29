@@ -32,11 +32,11 @@ If you meet all the requirements listed above and ready to Future-Proof your Car
 
 We teach the fundamental skills and knowledge required to become an autonomous Tech pro, competitive in today's ever evolving tech world.
 
-Within a period of 4-8 months, we train you to become a Tech ethusiast  on the tech skill you choose to learn.`
+Within a period of 4 months, we train you to become a Tech ethusiast  on the tech skill you choose to learn.`
     },
     {
       title: "Real-Life Projects",
-      content: `During the program, students are exposed to real-life applications and projects.
+      content: `During the program, students are exposed to real-life applications and projects.`
     },
     {
       title: "Internships",
