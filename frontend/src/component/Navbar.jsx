@@ -53,6 +53,13 @@ export default function Navbar() {
         >
           <NavLink to="/" className={linkClass}>Home</NavLink>
           <NavLink to="/bootcamp" className={linkClass}>Bootcamp</NavLink>
+<<<<<<< HEAD:src/component/Navbar.jsx
+
+          <NavLink to="/regular" className={linkClass}>Regular Program</NavLink>
+          {/* <NavLink to="/program" className={linkClass}>Program</NavLink> */}
+
+=======
+>>>>>>> origin/main:frontend/src/component/Navbar.jsx
           <NavLink to="/testimonials" className={linkClass}>Testimonials</NavLink>
           <NavLink to="/faq" className={linkClass}>FAQ</NavLink>
 

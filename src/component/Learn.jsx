@@ -31,19 +31,11 @@ export default function Learn() {
             process assesses your determination — not your coding ability.
           </p>
 
-          {/* Reusable Button */}
           <Button variant="primary">
             Start Your Journey
           </Button>
         </div>
 
-    <div>
-      <div>
-        <h1>Learn To Code, <br />Change Your Life</h1>
-      </div>
-      <div>
-        <h1>CODING EXPERIENCE OPTIONAL;<br />DETERMINATION REQUIRED</h1>
-        <p>We have what it takes to transform you into a Tech Warrior. We know that if you are committed to this journey, you will be able to succeed. That’s why our admissions process assesses only your determination – not your coding ability.</p>
       </div>
     </section>
   );

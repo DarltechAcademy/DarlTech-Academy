@@ -9,6 +9,7 @@ import {
   Bug,
   Palette,
 } from "lucide-react";
+import program from "../assets/image/about.jpg"
 
 export default function Program() {
   const programs = [
@@ -78,9 +79,19 @@ export default function Program() {
   ];
 
   return (
-    <div className="pt-28 bg-[var(--bg-section)] min-h-screen">
+    <div className=" bg-[var(--bg-section)] min-h-screen ">
       {/* Hero Section */}
-      <section className="text-center py-16 px-6">
+    <section className=" relative bg-center bg-cover h-96 flex items-center justify-center"
+    style={{backgroundImage: `url(${program})`,}}
+    >
+      <div className="absolute inset-0 bg-black/60"></div>
+
+
+    </section>
+
+      <section className="text-center py-16 px-6"
+      >
+
         <Code size={50} className="mx-auto text-[var(--accent)]" />
         <h1 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] mt-6">
           Our Programs
