@@ -24,7 +24,7 @@ export default function ApplyPage() {
       <section className="bg-blue-50 py-16 px-4 text-center">
         <h2 className="text-4xl font-bold mb-4">Launch Your Tech Career Today!</h2>
         <p className="text-gray-700 max-w-2xl mx-auto mb-8">
-          Join DarlingTech Academy intensive bootcamp programs in Web Development, Mobile Apps, Data Analysis, Cyber Security, and more. Become job-ready in weeks!
+          Join DarlTech Academy Scholarship bootcamp programs in Web Development, Mobile Apps, Data Analysis, Cyber Security, and more. Become job-ready in weeks!
         </p>
 
         <div className="flex justify-center gap-4">
