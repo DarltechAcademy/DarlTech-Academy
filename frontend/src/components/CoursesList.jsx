@@ -138,6 +138,11 @@ const CoursesList = () => {
               <option value="Cybersecurity">Cybersecurity</option>
               <option value="Frontend Development">Frontend Development</option>
               <option value="Backend Development">Backend Development</option>
+              <option value="python development">python development</option>
+              <option value="Cloud Computing">Cloud Computing</option>
+              <option value="Data Analytics">Data Analytics</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Product Management">Product Management</option>
               <option value="Graphic Design">Graphic Design</option>
             </select>
           </div>
