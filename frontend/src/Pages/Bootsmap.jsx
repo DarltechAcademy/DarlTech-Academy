@@ -36,27 +36,27 @@ export default function Bootcamp() {
 
   const admissionItems = [
     {
-      title: "Admission Process",
+      title: "Scholarship Admission Process",
       content:
-        "Our admission process is simple. We look out for people with determination, resilience and self-discipline."
+        "Our scholarship admission process is simple. We look out for people with determination, resilience and self-discipline."
     },
     {
       title: "Requirements",
       content: `Ensure you meet the following:
 
-• You have strong personal, academic, or professional performance
-• You learn fast and can handle pressure
-• You are disciplined and determined
-• You are above 18 years of age
-• You are ready for full-time commitment
-• You want to become financially independent as a Software Engineer`
+• Commitment fee of #30,000 naira only
+• Language: English proficiency for reading, writing, and speaking
+• Must have access to a laptop/phone plus internet access
+• Age: 16 years and above
+• Ready to commit 20-40hours every week
+• Education: Minimum secondary school completion`
     },
     {
-      title: "Training Bootcamp",
-      content: `We teach you how to think like an engineer and build real-world solutions.
+      title: "Scholarship Training Bootcamp",
+      content: `100% scholarship to any tech course of your choice and build real-world solutions.
 
 <<<<<<< HEAD:src/Pages/Bootsmap.jsx
-Within 6 months, you’ll become a full-stack developer with strong fundamentals.`
+Within 4 months, you'll be scalling above other techies.`
     },
     {
       title: "Real-Life Projects",
@@ -75,7 +75,7 @@ Within a period of 4 months, we train you to become a Tech ethusiast  on the tec
     {
       title: "Internships",
       content:
-        "Top students get internship opportunities to gain real experience."
+        "Best grade students gets internship opportunities to gain real experience."
     }
   ];
 
@@ -86,9 +86,9 @@ Within a period of 4 months, we train you to become a Tech ethusiast  on the tec
         "No. Beginners are welcome. Your commitment matters most."
     },
     {
-      question: "Is the bootcamp full-time?",
+      question: "Is the scholarship bootcamp full-time?",
       answer:
-        "Yes. It requires full focus during the training period."
+        "Yes. It requires full focus during the training period, At least commitment 30hours per week to learn."
     },
     {
       question: "Do you offer internships?",
@@ -101,9 +101,9 @@ Within a period of 4 months, we train you to become a Tech ethusiast  on the tec
         "Yes. You’ll receive a certificate after completion."
     },
     {
-      question: "Can I pay in installments?",
+      question: "How much is the commitment fee?",
       answer:
-        "Yes. Flexible payment options are available."
+        "#30,000 non refundable fee."
     }
   ];
 
@@ -117,7 +117,7 @@ Within a period of 4 months, we train you to become a Tech ethusiast  on the tec
             {/* "> */}
               <div className="absolute inset-0 bg-black/60 ">
         <div className="pt-20"><h1 className="text-5xl font-bold">
-          Immersive Coding Bootcamp
+          Scholarship Bootcamp
         </h1>
 
         <p className="mt-6 max-w-2xl mx-auto text-lg">
@@ -159,7 +159,7 @@ Within a period of 4 months, we train you to become a Tech ethusiast  on the tec
                 </h3>
 
                 <p className="mt-2 text-[var(--text-muted)]">
-                  Duration: {course.duration || "4–7 Months"}
+                  Duration: {course.duration || "4 Months"}
                 </p>
 
                 <p className="text-2xl font-bold mt-4">
