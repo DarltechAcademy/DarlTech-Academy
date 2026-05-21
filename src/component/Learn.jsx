@@ -9,9 +9,9 @@ export default function Learn() {
         {/* Left Side */}
         <div className="md:w-1/2">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight text-[var(--text-primary)]">
-            Learn To Code, <br />
+            Learn A Tech Skill Today, <br />
             <span className="text-[var(--accent)]">
-              Change Your Life
+              Become Job ready for the future!
             </span>
           </h1>
         </div>
@@ -19,20 +19,18 @@ export default function Learn() {
         {/* Right Side */}
         <div className="md:w-1/2 space-y-6">
           <h2 className="text-xl md:text-2xl font-semibold text-[var(--text-primary)]">
-            CODING EXPERIENCE OPTIONAL; <br />
+            DARLTECH ACADEMY SCHOLARSHIP PROGRAM; <br />
             <span className="text-[var(--accent)]">
               DETERMINATION REQUIRED
             </span>
           </h2>
 
           <p className="text-[var(--text-muted)] leading-relaxed text-base">
-            Thanks to over 7 years of building software across mobile, web and 
-            desktop apps, we transform you into a Tech Warrior. Our admissions 
-            process assesses your determination — not your coding ability.
+            DarlTech Academy is here to build next generation techies through hands-on real world projects, be part of it.
           </p>
 
           <Button variant="primary">
-            Start Your Journey
+            Start Your Tech Journey
           </Button>
         </div>
 

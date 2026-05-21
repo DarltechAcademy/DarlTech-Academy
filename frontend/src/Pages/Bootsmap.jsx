@@ -1,0 +1,276 @@
+import { useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import img from "../assets/image/img3.png";
+import Boot from "../assets/image/boot.jpg"
+
+export default function Bootcamp() {
+  const [active, setActive] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const API = "http://localhost:5000/api";
+
+  // 🔥 Fetch courses from backend
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await axios.get(`${API}/courses`);
+
+        // Only published courses
+        const published = res.data.filter(
+          (c) => c.status === "Published"
+        );
+
+        setCourses(published);
+      } catch (err) {
+        console.error("Error fetching courses:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  const admissionItems = [
+    {
+      title: "Scholarship Admission Process",
+      content:
+        "Our scholarship admission process is simple. We look out for people with determination, resilience and self-discipline."
+    },
+    {
+      title: "Requirements",
+      content: `Ensure you meet the following:
+
+• Commitment fee of #30,000 naira only
+• Language: English proficiency for reading, writing, and speaking
+• Must have access to a laptop/phone plus internet access
+• Age: 16 years and above
+• Ready to commit 20-40hours every week
+• Education: Minimum secondary school completion`
+    },
+    {
+      title: "Scholarship Training Bootcamp",
+      content: `100% scholarship to any tech course of your choice and build real-world solutions.
+
+<<<<<<< HEAD:src/Pages/Bootsmap.jsx
+Within 4 months, you'll be scalling above other techies.`
+    },
+    {
+      title: "Real-Life Projects",
+      content:
+        "You will build real-world applications and a strong portfolio."
+=======
+We teach the fundamental skills and knowledge required to become an autonomous Tech pro, competitive in today's ever evolving tech world.
+
+Within a period of 4 months, we train you to become a Tech ethusiast  on the tech skill you choose to learn.`
+    },
+    {
+      title: "Real-Life Projects",
+      content: `During the program, students are exposed to real-life applications and projects.`
+>>>>>>> origin/main:frontend/src/Pages/Bootsmap.jsx
+    },
+    {
+      title: "Internships",
+      content:
+        "Best grade students gets internship opportunities to gain real experience."
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "Do I need prior coding experience?",
+      answer:
+        "No. Beginners are welcome. Your commitment matters most."
+    },
+    {
+      question: "Is the scholarship bootcamp full-time?",
+      answer:
+        "Yes. It requires full focus during the training period, At least commitment 30hours per week to learn."
+    },
+    {
+      question: "Do you offer internships?",
+      answer:
+        "Yes. Students get real-world experience after training."
+    },
+    {
+      question: "Will I get a certificate?",
+      answer:
+        "Yes. You’ll receive a certificate after completion."
+    },
+    {
+      question: "How much is the commitment fee?",
+      answer:
+        "#30,000 non refundable fee."
+    }
+  ];
+
+  return (
+    <div className="pt-20 bg-[var(--bg-main)] text-gray-900 ">
+
+      {/* HERO */}
+      <section className=" relative bg-center bg-cover h-96 text-white py-24  text-center px-6"
+          style={{backgroundImage: `url(${Boot})`,}}
+          >
+            {/* "> */}
+              <div className="absolute inset-0 bg-black/60 ">
+        <div className="pt-20"><h1 className="text-5xl font-bold">
+          Scholarship Bootcamp
+        </h1>
+
+        <p className="mt-6 max-w-2xl mx-auto text-lg">
+          Career-focused intensive training to become job-ready.
+        </p>
+
+        <Link to="/apply">
+          <button className="mt-8 px-8 py-3 bg-white text-black rounded-full font-semibold hover:scale-105">
+            Apply Now
+          </button>
+        </Link>
+        </div>
+        </div>
+      </section>
+
+      {/* PROGRAMS */}
+      <section className="py-20 bg-[var(--bg-section)]">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          Available Programs
+        </h2>
+
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
+          {loading ? (
+            <p className="col-span-full text-center">
+              Loading courses...
+            </p>
+          ) : courses.length === 0 ? (
+            <p className="col-span-full text-center">
+              No courses available
+            </p>
+          ) : (
+            courses.map((course) => (
+              <div
+                key={course._id}
+                className="bg-white p-8 rounded-2xl shadow-lg text-center hover:-translate-y-2 transition"
+              >
+                <h3 className="text-xl font-bold">
+                  {course.title}
+                </h3>
+
+                <p className="mt-2 text-[var(--text-muted)]">
+                  Duration: {course.duration || "4 Months"}
+                </p>
+
+                <p className="text-2xl font-bold mt-4">
+                  ₦{course.price || 0}
+                </p>
+
+                <Link to={`/course/${course._id}`}>
+                  <button className="mt-6 px-6 py-2 bg-black text-white rounded-full">
+                    Enroll Now
+                  </button>
+                </Link>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* ADMISSION */}
+      <section className="py-20 bg-[var(--bg-section)]">
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Admission Process
+        </h2>
+
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+          <div className="space-y-4">
+            {admissionItems.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white p-5 rounded-xl shadow cursor-pointer"
+                onClick={() =>
+                  setActive(active === index ? null : index)
+                }
+              >
+                <div className="flex justify-between">
+                  <h3 className="font-semibold">
+                    {item.title}
+                  </h3>
+                  <ChevronDown
+                    className={`${
+                      active === index ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+
+                {active === index && (
+                  <p className="mt-3 text-gray-500">
+                    {item.content}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <img
+            src={img}
+            alt="Bootcamp"
+            className="rounded-2xl shadow"
+          />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 bg-[var(--bg-section)]">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          FAQs
+        </h2>
+
+        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-6">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="bg-white p-5 rounded-xl shadow cursor-pointer"
+              onClick={() =>
+                setActive(
+                  active === index + 10 ? null : index + 10
+                )
+              }
+            >
+              <div className="flex justify-between">
+                <h3>{faq.question}</h3>
+                <ChevronDown
+                  className={`${
+                    active === index + 10
+                      ? "rotate-180"
+                      : ""
+                  }`}
+                />
+              </div>
+
+              {active === index + 10 && (
+                <p className="mt-3 text-gray-500">
+                  {faq.answer}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-[var(--primary)] text-white text-center">
+        <h2 className="text-4xl font-bold">
+          Ready to Transform Your Career?
+        </h2>
+
+        <Link to="/apply">
+          <button className="mt-8 px-8 py-3 bg-white text-black rounded-full">
+            Apply Now
+          </button>
+        </Link>
+      </section>
+    </div>
+  );
+}
