@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.0",
-<<<<<<< HEAD:package.json
     "axios": "^1.15.2",
     "chart.js": "^4.5.1",
     "lucide-react": "^0.575.0",
