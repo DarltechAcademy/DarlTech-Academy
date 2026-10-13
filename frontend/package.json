@@ -16,13 +16,11 @@
     "lucide-react": "^0.575.0",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.3.1",
-=======
     "axios": "^1.6.0",
     "chart.js": "^4.4.0",
     "lucide-react": "^0.575.0",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.2.0",
->>>>>>> origin/main:frontend/package.json
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.1",
     "tailwindcss": "^4.2.0"
